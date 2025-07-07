@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,17 +7,20 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { MenuOpen } from "@mui/icons-material";
 
-const settings = ["Orders", "Add Product", "Products", "Logout"];
+import { UserContext } from "../context/user";
+import { useNavigate } from "react-router-dom";
 
-export default function Navbar({ isLoggedIn = true }) {
+export default function Navbar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,7 +41,7 @@ export default function Navbar({ isLoggedIn = true }) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          {/* Desktop */}
           <Typography
             variant="h6"
             noWrap
@@ -54,8 +57,118 @@ export default function Navbar({ isLoggedIn = true }) {
               textDecoration: "none",
             }}
           >
+            <LocalMallIcon
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            />
             ShopiFyzz
           </Typography>
+          <Box
+            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, gap: 2 }}
+          >
+            <Button
+              key={0}
+              onClick={handleCloseNavMenu}
+              sx={{
+                my: 1,
+                color: "white",
+                display: "block",
+                position: "ml",
+                fontSize: 18,
+              }}
+            >
+              Cart
+            </Button>
+            <Button
+              key={1}
+              onClick={() => navigate("/orders")}
+              sx={{
+                my: 1,
+                color: "white",
+                display: "block",
+                position: "ml",
+                fontSize: 18,
+              }}
+            >
+              Orders
+            </Button>
+          </Box>
+          {!isLoggedIn && (
+            <Box
+              sx={{
+                flexGrow: 0,
+                display: { xs: "none", md: "flex" },
+                gap: 2,
+                marginLeft: "auto",
+              }}
+            >
+              <Button
+                key={2}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  display: "block",
+                  my: 1,
+                  color: "white",
+                  position: "ml",
+                  fontSize: 18,
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                key={3}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 1,
+                  color: "white",
+                  display: "block",
+                  position: "ml",
+                  fontSize: 18,
+                }}
+              >
+                Signup
+              </Button>
+            </Box>
+          )}
+          {isLoggedIn && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <MenuOpen sx={{ fontSize: 40, color: "white" }} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key={0} onClick>
+                  <Typography sx={{ textAlign: "center" }}>
+                    Add Product
+                  </Typography>
+                </MenuItem>
+                <MenuItem key={1} onClick>
+                  <Typography sx={{ textAlign: "center" }}>
+                    Admin Products
+                  </Typography>
+                </MenuItem>
+                <MenuItem key={2} onClick>
+                  <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
+          {/* Mobile  */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -84,11 +197,23 @@ export default function Navbar({ isLoggedIn = true }) {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               <MenuItem key={0} onClick={handleCloseNavMenu}>
-                <Typography sx={{ textAlign: "center" }}></Typography>
+                <Typography sx={{ textAlign: "center" }}>Cart</Typography>
               </MenuItem>
+              <MenuItem key={1} onClick={handleCloseNavMenu}>
+                <Typography sx={{ textAlign: "center" }}>Orders</Typography>
+              </MenuItem>
+              {!isLoggedIn && (
+                <MenuItem key={2} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: "center" }}>Login</Typography>
+                </MenuItem>
+              )}
+              {!isLoggedIn && (
+                <MenuItem key={3} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: "center" }}>Signup</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -105,92 +230,11 @@ export default function Navbar({ isLoggedIn = true }) {
               textDecoration: "none",
             }}
           >
+            <LocalMallIcon
+              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            />
             ShopiFyzz
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              key={1}
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                position: "right",
-              }}
-            >
-              Cart
-            </Button>
-            <Button
-              key={1}
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                position: "right",
-              }}
-            >
-              Orders
-            </Button>
-            <Button
-              key={1}
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                position: "right",
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              key={1}
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                position: "right",
-              }}
-            >
-              Signup
-            </Button>
-          </Box>
-          {isLoggedIn && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem key={0} onClick>
-                  <Typography sx={{ textAlign: "center" }}>
-                    Admin Products
-                  </Typography>
-                </MenuItem>
-                <MenuItem key={0} onClick>
-                  <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
-          )}
         </Toolbar>
       </Container>
     </AppBar>

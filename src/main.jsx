@@ -1,20 +1,22 @@
-import { StrictMode } from "react";
+import { StrictMode, createContext } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
-import Home from "../src/components/home.jsx";
-import Login from "../src/components/login.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { UserProvider } from "./context/user.jsx";
+import App from "./App.jsx";
+import Login from "../src/components/login.jsx";
 import Navbar from "./components/Navbar.jsx";
+import "./index.css";
 
 const router = createBrowserRouter([
-  { path: "/", Component: Home },
+  { path: "/", Component: App },
   { path: "/login", Component: Login },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Navbar />
-    <App />
+    <UserProvider>
+      <Navbar />
+      <RouterProvider router={router}></RouterProvider>
+    </UserProvider>
   </StrictMode>
 );
