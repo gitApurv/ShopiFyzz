@@ -6,6 +6,7 @@ import Layout from "./Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import "./index.css";
+import { SnackbarProvider } from "notistack";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LoginProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </LoginProvider>
+    <SnackbarProvider maxSnack={3}>
+      <LoginProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </LoginProvider>
+    </SnackbarProvider>
   </StrictMode>
 );

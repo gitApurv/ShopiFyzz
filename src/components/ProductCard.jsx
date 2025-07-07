@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,10 +7,17 @@ import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
+import { addProductToCart } from "../api/cart";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, showAlert }) {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+
+  const addToCart = (e) => {
+    const id = product._id;
+    showAlert();
+    addProductToCart(id);
+  };
 
   return (
     <Card
@@ -47,7 +53,11 @@ export default function ProductCard({ product }) {
         >
           Details
         </Button>
-        {isLoggedIn && <Button size="small">Add to Cart</Button>}
+        {isLoggedIn && (
+          <Button size="small" onClick={addToCart}>
+            Add to Cart
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

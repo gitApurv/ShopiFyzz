@@ -1,6 +1,7 @@
 import { Container, Grid } from "@mui/material";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
 
 const products = Array(8).fill({
   _id: 1,
@@ -11,15 +12,26 @@ const products = Array(8).fill({
 });
 
 function App() {
-  const [produdcts, setProducts] = useState([]);
-  useEffect(() => {}, []);
+  const { enqueueSnackbar } = useSnackbar();
+  const showAlert = () => {
+    enqueueSnackbar("Added to Cart", {
+      variant: "success",
+      autoHideDuration: 1000,
+      style: {
+        backgroundColor: "#1976d2",
+      },
+    });
+  };
+
+  // const [products, setProducts] = useState([]);
+  // useEffect(() => {}, []);
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Grid container spacing={5} justifyContent="center">
         {products.map((product) => (
           <Grid item key={product._id} xs={12} sm={6} md={4} lg={3} xl={2}>
-            <ProductCard product={product} />
+            <ProductCard product={product} showAlert={showAlert} />
           </Grid>
         ))}
       </Grid>
