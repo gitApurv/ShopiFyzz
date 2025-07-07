@@ -1,22 +1,30 @@
-import { StrictMode, createContext } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { UserProvider } from "./context/user.jsx";
-import App from "./App.jsx";
-import Login from "../src/components/login.jsx";
-import Navbar from "./components/Navbar.jsx";
+import { LoginProvider } from "./context/Login.jsx";
+import Layout from "./Layout.jsx";
+import Home from "./pages/Home.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
-  { path: "/", Component: App },
-  { path: "/login", Component: Login },
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", Component: Home },
+      {
+        path: "/product/:productId",
+        Component: ProductDetails,
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserProvider>
-      <Navbar />
+    <LoginProvider>
       <RouterProvider router={router}></RouterProvider>
-    </UserProvider>
+    </LoginProvider>
   </StrictMode>
 );

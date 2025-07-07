@@ -12,15 +12,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { MenuOpen } from "@mui/icons-material";
-
-import { UserContext } from "../context/user";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { LoginContext } from "../context/Login";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,8 +44,7 @@ export default function Navbar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -55,6 +53,7 @@ export default function Navbar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             <LocalMallIcon
@@ -67,7 +66,7 @@ export default function Navbar() {
           >
             <Button
               key={0}
-              onClick={handleCloseNavMenu}
+              onClick={() => navigate("/cart")}
               sx={{
                 my: 1,
                 color: "white",
@@ -103,7 +102,7 @@ export default function Navbar() {
             >
               <Button
                 key={2}
-                onClick={handleCloseNavMenu}
+                onClick={() => navigate("/login")}
                 sx={{
                   display: "block",
                   my: 1,
@@ -116,7 +115,7 @@ export default function Navbar() {
               </Button>
               <Button
                 key={3}
-                onClick={handleCloseNavMenu}
+                onClick={() => navigate("/signup")}
                 sx={{
                   my: 1,
                   color: "white",
@@ -130,10 +129,10 @@ export default function Navbar() {
             </Box>
           )}
           {isLoggedIn && (
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 0 }}>
               <Tooltip>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <MenuOpen sx={{ fontSize: 40, color: "white" }} />
+                  <MenuOpen sx={{ color: "white" }} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -152,13 +151,13 @@ export default function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem key={0} onClick>
+                <MenuItem key={0} onClick={() => navigate("add-product")}>
                   <Typography sx={{ textAlign: "center" }}>
                     Add Product
                   </Typography>
                 </MenuItem>
-                <MenuItem key={1} onClick>
-                  <Typography sx={{ textAlign: "center" }}>
+                <MenuItem key={1} onClick={() => navigate("products")}>
+                  <Typography sx={{ textAlign: "center" }} href="/products">
                     Admin Products
                   </Typography>
                 </MenuItem>
@@ -172,7 +171,6 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -196,19 +194,19 @@ export default function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              <MenuItem key={0} onClick={handleCloseNavMenu}>
+              <MenuItem key={0} onClick={() => navigate("cart")}>
                 <Typography sx={{ textAlign: "center" }}>Cart</Typography>
               </MenuItem>
-              <MenuItem key={1} onClick={handleCloseNavMenu}>
+              <MenuItem key={1} onClick={() => navigate("orders")}>
                 <Typography sx={{ textAlign: "center" }}>Orders</Typography>
               </MenuItem>
               {!isLoggedIn && (
-                <MenuItem key={2} onClick={handleCloseNavMenu}>
+                <MenuItem key={2} onClick={() => navigate("login")}>
                   <Typography sx={{ textAlign: "center" }}>Login</Typography>
                 </MenuItem>
               )}
               {!isLoggedIn && (
-                <MenuItem key={3} onClick={handleCloseNavMenu}>
+                <MenuItem key={3} onClick={() => navigate("signup")}>
                   <Typography sx={{ textAlign: "center" }}>Signup</Typography>
                 </MenuItem>
               )}
@@ -235,6 +233,51 @@ export default function Navbar() {
             />
             ShopiFyzz
           </Typography>
+          {isLoggedIn && (
+            <Box sx={{ display: { xs: "flex", md: "none" }, flexGrow: 0 }}>
+              <Tooltip>
+                <IconButton
+                  size="large"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenUserMenu}
+                  color="inherit"
+                >
+                  <MenuOpen />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key={0} onClick={() => navigate("add-product")}>
+                  <Typography sx={{ textAlign: "center" }}>
+                    Add Product
+                  </Typography>
+                </MenuItem>
+                <MenuItem key={1} onClick={() => navigate("products")}>
+                  <Typography sx={{ textAlign: "center" }} href="/products">
+                    Admin Products
+                  </Typography>
+                </MenuItem>
+                <MenuItem key={2} onClick>
+                  <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
