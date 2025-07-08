@@ -9,10 +9,8 @@ import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
 import { useSnackbar } from "notistack";
 
-export default function ProductCard({ product }) {
+export default function AdminProductCard({ product, deleteProduct }) {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-
   const { enqueueSnackbar } = useSnackbar();
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
@@ -28,13 +26,10 @@ export default function ProductCard({ product }) {
     });
   };
 
-  const addToCart = async () => {
-    if (!isLoggedIn) {
-      showAlert("Unauthorized : Login First", "error");
-      return;
-    }
+  const handleDeleteProduct = async () => {
     const id = product._id;
-    showAlert("Product added to cart", "success");
+    deleteProduct(id);
+    showAlert("Product Deleted", "success");
   };
 
   return (
@@ -69,17 +64,17 @@ export default function ProductCard({ product }) {
           size="small"
           variant="contained"
           color="primary"
-          onClick={() => navigate(`/product/${product._id}`)}
+          onClick={() => navigate(`/admin/add-product/${product._id}`)}
         >
-          Details
+          Edit
         </Button>
         <Button
           size="small"
           variant="contained"
           color="primary"
-          onClick={addToCart}
+          onClick={handleDeleteProduct}
         >
-          Add to Cart
+          Delete
         </Button>
       </CardActions>
     </Card>

@@ -21,11 +21,6 @@ export default function AddProduct() {
   const [loading, setLoading] = useState(false);
   const { register, setValue, handleSubmit } = useForm();
   const [editing, setEditing] = useState(false);
-  const [product, setProduct] = useState({
-    title: "",
-    price: "",
-    description: "",
-  });
 
   const laodProduct = async (productId) => {
     // logic ?
@@ -34,7 +29,6 @@ export default function AddProduct() {
       price: "42",
       description: "ShopiFyzz",
     };
-    setProduct(data);
     setValue("title", data.title);
     setValue("price", data.price);
     setValue("description", data.description);
@@ -103,12 +97,14 @@ export default function AddProduct() {
   const handleAddProduct = async (data) => {
     setLoading(true);
     showAlert("Product Added");
+    navigate("/admin/products");
     setLoading(false);
   };
 
   const handleEditProduct = async (data) => {
     setLoading(true);
     showAlert("Product Edited");
+    navigate("/admin/products");
     setLoading(false);
   };
 

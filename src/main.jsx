@@ -6,9 +6,11 @@ import { LoginProvider } from "./context/Login.jsx";
 import Layout from "./Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
+import Cart from "./pages/Cart.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
+import AdminProducts from "./pages/AdminProducts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
         Component: ProductDetails,
       },
       {
+        path: "/cart",
+        Component: Cart,
+      },
+      {
         path: "/login",
         Component: Login,
       },
@@ -29,12 +35,16 @@ const router = createBrowserRouter([
         Component: Signup,
       },
       {
-        path: "/add-product",
+        path: "/admin/add-product",
         Component: AddProduct,
       },
       {
-        path: "/add-product/:productId",
+        path: "/admin/add-product/:productId",
         Component: AddProduct,
+      },
+      {
+        path: "/admin/products",
+        Component: AdminProducts,
       },
     ],
   },

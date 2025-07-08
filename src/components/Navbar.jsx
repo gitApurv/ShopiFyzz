@@ -143,7 +143,6 @@ export default function Navbar() {
                   vertical: "top",
                   horizontal: "right",
                 }}
-                keepMounted
                 transformOrigin={{
                   vertical: "top",
                   horizontal: "right",
@@ -151,17 +150,29 @@ export default function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem key={0} onClick={() => navigate("add-product")}>
+                <MenuItem
+                  key={0}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    navigate("/admin/add-product");
+                  }}
+                >
                   <Typography sx={{ textAlign: "center" }}>
                     Add Product
                   </Typography>
                 </MenuItem>
-                <MenuItem key={1} onClick={() => navigate("products")}>
-                  <Typography sx={{ textAlign: "center" }} href="/products">
+                <MenuItem
+                  key={1}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    navigate("/admin/products");
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>
                     Admin Products
                   </Typography>
                 </MenuItem>
-                <MenuItem key={2} onClick>
+                <MenuItem key={2}>
                   <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
                 </MenuItem>
               </Menu>
@@ -185,7 +196,6 @@ export default function Navbar() {
                 vertical: "bottom",
                 horizontal: "left",
               }}
-              keepMounted
               transformOrigin={{
                 vertical: "top",
                 horizontal: "left",
@@ -194,19 +204,43 @@ export default function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              <MenuItem key={0} onClick={() => navigate("cart")}>
+              <MenuItem
+                key={0}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("cart");
+                }}
+              >
                 <Typography sx={{ textAlign: "center" }}>Cart</Typography>
               </MenuItem>
-              <MenuItem key={1} onClick={() => navigate("orders")}>
+              <MenuItem
+                key={1}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("orders");
+                }}
+              >
                 <Typography sx={{ textAlign: "center" }}>Orders</Typography>
               </MenuItem>
               {!isLoggedIn && (
-                <MenuItem key={2} onClick={() => navigate("login")}>
+                <MenuItem
+                  key={2}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    navigate("login");
+                  }}
+                >
                   <Typography sx={{ textAlign: "center" }}>Login</Typography>
                 </MenuItem>
               )}
               {!isLoggedIn && (
-                <MenuItem key={3} onClick={() => navigate("signup")}>
+                <MenuItem
+                  key={3}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    navigate("signup");
+                  }}
+                >
                   <Typography sx={{ textAlign: "center" }}>Signup</Typography>
                 </MenuItem>
               )}
@@ -254,7 +288,6 @@ export default function Navbar() {
                   vertical: "top",
                   horizontal: "right",
                 }}
-                keepMounted
                 transformOrigin={{
                   vertical: "top",
                   horizontal: "right",
@@ -262,17 +295,29 @@ export default function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem key={0} onClick={() => navigate("add-product")}>
+                <MenuItem
+                  key={0}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    navigate("/admin/add-product");
+                  }}
+                >
                   <Typography sx={{ textAlign: "center" }}>
                     Add Product
                   </Typography>
                 </MenuItem>
-                <MenuItem key={1} onClick={() => navigate("products")}>
+                <MenuItem
+                  key={1}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    navigate("/admin/products");
+                  }}
+                >
                   <Typography sx={{ textAlign: "center" }} href="/products">
                     Admin Products
                   </Typography>
                 </MenuItem>
-                <MenuItem key={2} onClick>
+                <MenuItem key={2}>
                   <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
                 </MenuItem>
               </Menu>
