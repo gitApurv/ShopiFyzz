@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
-import { addProductToCart } from "../api/cart";
 import { useSnackbar } from "notistack";
 
 export default function ProductCard({ product }) {
@@ -15,20 +14,27 @@ export default function ProductCard({ product }) {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
 
   const { enqueueSnackbar } = useSnackbar();
-  const showAlert = () => {
-    enqueueSnackbar("Added to Cart", {
-      variant: "success",
+  const showAlert = (message, variant) => {
+    enqueueSnackbar(message, {
+      variant: variant,
       autoHideDuration: 1000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "center",
+      },
       style: {
-        backgroundColor: "#1976d2",
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
       },
     });
   };
 
-  const addToCart = (e) => {
+  const addToCart = async () => {
+    if (!isLoggedIn) {
+      showAlert("Unauthorized : Login First", "error");
+      return;
+    }
     const id = product._id;
-    showAlert();
-    addProductToCart(id);
+    showAlert("Product added to cart", "success");
   };
 
   return (
@@ -67,16 +73,14 @@ export default function ProductCard({ product }) {
         >
           Details
         </Button>
-        {isLoggedIn && (
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
-            onClick={addToCart}
-          >
-            Add to Cart
-          </Button>
-        )}
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={addToCart}
+        >
+          Add to Cart
+        </Button>
       </CardActions>
     </Card>
   );

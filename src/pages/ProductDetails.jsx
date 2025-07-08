@@ -1,29 +1,37 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { addProductToCart } from "../api/cart";
 import { useSnackbar } from "notistack";
+import { LoginContext } from "../context/Login";
 
 export default function ProductDetails() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
   useEffect(() => {}, [productId]);
 
   const { enqueueSnackbar } = useSnackbar();
-  const showAlert = () => {
-    enqueueSnackbar("Added to Cart", {
-      variant: "success",
+  const showAlert = (message, variant) => {
+    enqueueSnackbar(message, {
+      variant: variant,
       autoHideDuration: 1000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "center",
+      },
       style: {
-        backgroundColor: "#1976d2",
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
       },
     });
   };
 
-  const addToCart = (e) => {
-    showAlert();
-    addProductToCart(id);
+  const addToCart = async () => {
+    if (!isLoggedIn) {
+      showAlert("Unauthorized : Login First", "error");
+      return;
+    }
+    showAlert("Product added to cart", "success");
   };
 
   return (

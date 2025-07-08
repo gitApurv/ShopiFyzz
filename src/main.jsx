@@ -1,12 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { SnackbarProvider } from "notistack";
 import { LoginProvider } from "./context/Login.jsx";
 import Layout from "./Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
-import "./index.css";
-import { SnackbarProvider } from "notistack";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import AddProduct from "./pages/AddProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,22 @@ const router = createBrowserRouter([
       {
         path: "/product/:productId",
         Component: ProductDetails,
+      },
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/signup",
+        Component: Signup,
+      },
+      {
+        path: "/add-product",
+        Component: AddProduct,
+      },
+      {
+        path: "/add-product/:productId",
+        Component: AddProduct,
       },
     ],
   },
