@@ -8,10 +8,22 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
 import { addProductToCart } from "../api/cart";
+import { useSnackbar } from "notistack";
 
-export default function ProductCard({ product, showAlert }) {
+export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+
+  const { enqueueSnackbar } = useSnackbar();
+  const showAlert = () => {
+    enqueueSnackbar("Added to Cart", {
+      variant: "success",
+      autoHideDuration: 1000,
+      style: {
+        backgroundColor: "#1976d2",
+      },
+    });
+  };
 
   const addToCart = (e) => {
     const id = product._id;
@@ -25,7 +37,7 @@ export default function ProductCard({ product, showAlert }) {
         width: 268,
         height: 300,
         m: 2,
-        borderRadius: 3,
+        borderRadius: 1,
         boxShadow: 4,
         transition: "transform 0.3s",
         "&:hover": {
@@ -49,12 +61,19 @@ export default function ProductCard({ product, showAlert }) {
       <CardActions>
         <Button
           size="small"
+          variant="contained"
+          color="primary"
           onClick={() => navigate(`/product/${product._id}`)}
         >
           Details
         </Button>
         {isLoggedIn && (
-          <Button size="small" onClick={addToCart}>
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            onClick={addToCart}
+          >
             Add to Cart
           </Button>
         )}

@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { MenuOpen } from "@mui/icons-material";
+import { AccountBox, MenuOpen } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
 
@@ -132,7 +132,7 @@ export default function Navbar() {
             <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 0 }}>
               <Tooltip>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <MenuOpen sx={{ color: "white" }} />
+                  <AccountBox sx={{ color: "white", fontSize: 30 }} />
                 </IconButton>
               </Tooltip>
               <Menu
