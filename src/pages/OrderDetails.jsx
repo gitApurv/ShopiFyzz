@@ -22,16 +22,17 @@ const order = {
 export default function OrderDetails() {
   const { orderId } = useParams();
   const [order, setOrder] = useState({});
-  const loadOrder = async (id) => {
-    const order = getOrder(id);
+
+  const loadOrder = async (orderId) => {
+    const order = getOrder(orderId);
     setOrder(order);
   };
   useEffect(() => {
-    loadOrder();
+    loadOrder(orderId);
   }, [orderId]);
 
   const handleDownloadReceipt = () => {
-    dwonloadReceipt(orderId);
+    downloadReceipt(orderId);
   };
 
   return (

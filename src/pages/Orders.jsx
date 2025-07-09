@@ -22,10 +22,12 @@ const orders = Array(0).fill({
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+
   const loadOrders = async () => {
     const orders = await getOrders();
     setOrders(orders);
   };
+
   useEffect(() => {
     loadOrders;
   }, [orders]);

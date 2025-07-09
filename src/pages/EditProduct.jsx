@@ -91,7 +91,7 @@ export default function EditProduct() {
   const handleEditProduct = async (product) => {
     setLoading(true);
     try {
-      const response = editProduct(product);
+      const response = editProduct(productId, product);
       if (!response.ok) {
         throw new Error("Failed to Edit Product");
       }

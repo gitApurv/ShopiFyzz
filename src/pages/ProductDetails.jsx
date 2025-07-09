@@ -24,13 +24,13 @@ export default function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
-  const loadProduct = async (id) => {
-    const product = getProduct(id);
+  const loadProduct = async (productId) => {
+    const product = getProduct(productId);
     setProduct(product);
   };
 
   useEffect(() => {
-    loadProduct();
+    loadProduct(productId);
   }, [productId]);
 
   const { enqueueSnackbar } = useSnackbar();

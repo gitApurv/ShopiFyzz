@@ -24,6 +24,7 @@ const cart = {
 export default function Cart() {
   const navigate = useNavigate();
   const [cart, setCart] = useState({});
+
   const loadCart = async () => {
     const cart = await getCart();
     setCart(cart);
