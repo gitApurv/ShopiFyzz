@@ -4,12 +4,25 @@ import { useParams } from "react-router";
 import { useSnackbar } from "notistack";
 import { LoginContext } from "../context/Login";
 
+const product = {
+  _id: 1,
+  title: "Book",
+  price: 23,
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus, odio eligendi quisquam debitis omnis voluptas labore officiis excepturi suscipit accusamus deleniti iusto inventore! Sunt eum architecto asperiores tempora commodi!",
+  imageUrl:
+    "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
+  user: {
+    _id: 1,
+    name: "Apurv",
+  },
+};
+
 export default function ProductDetails() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-  const { productId } = useParams();
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {}, [productId]);
+  // const { productId } = useParams();
+  // const [product, setProduct] = useState({});
+  // useEffect(() => {}, [productId]);
 
   const { enqueueSnackbar } = useSnackbar();
   const showAlert = (message, variant) => {
@@ -40,8 +53,8 @@ export default function ProductDetails() {
         <Grid item xs={12} md={5}>
           <Box
             component="img"
-            src="https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY="
-            alt="Product"
+            src={product.imageUrl}
+            alt={product.title}
             sx={{
               width: "100%",
               height: "auto",
@@ -52,10 +65,10 @@ export default function ProductDetails() {
         </Grid>
         <Grid item xs={12} md={7}>
           <Typography variant="h3" gutterBottom>
-            Book
+            {product.title}
           </Typography>
           <Typography variant="h5" gutterBottom>
-            Rs. Price
+            Rs. {product.price}
           </Typography>
           <Typography
             variant="body1"
@@ -66,13 +79,10 @@ export default function ProductDetails() {
               whiteSpace: "normal",
             }}
           >
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, et?
-            Doloribus consectetur ex sit reiciendis eveniet tempora repellendus
-            amet accusamus veritatis cupiditate! Aliquam recusandae voluptatem
-            accusantium dolor eos! Atque, provident!
+            {product.description}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            Seller: Apurv
+            Seller: {product.user.name}
           </Typography>
           <Button
             sx={{ mt: 2 }}

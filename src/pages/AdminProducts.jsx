@@ -1,31 +1,66 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import AdminProductCard from "../components/AdminProductCard";
-import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 
-const products = Array(8).fill({
+const products = Array(2).fill({
   _id: 1,
   imageUrl:
     "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
   title: "Book",
   price: 23,
+  user: {
+    _id: 1,
+  },
 });
 
 export default function AdminProducts() {
   // const [products, setProducts] = useState([]);
   // useEffect(() => {}, []);
 
-  const deleteProduct = async (id) => {};
+  const { enqueueSnackbar } = useSnackbar();
+  const showAlert = (message, variant) => {
+    enqueueSnackbar(message, {
+      variant: variant,
+      autoHideDuration: 1000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "center",
+      },
+      style: {
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
+      },
+    });
+  };
+
+  const deleteProduct = async (id) => {
+    showAlert("Product Deleted", "success");
+  };
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Grid container spacing={2} justifyContent="center">
-        {products.map((product) => (
-          <Grid item key={product._id} xs={12} sm={6} md={4} lg={3} xl={2}>
-            <AdminProductCard product={product} deleteProduct={deleteProduct} />
-          </Grid>
-        ))}
-      </Grid>
+    <Container sx={{ py: 4, maxWidth: "xl" }}>
+      {products.length > 0 ? (
+        <Grid container spacing={2} justifyContent="center">
+          {products.map((product) => (
+            <Grid item key={product._id} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <AdminProductCard
+                product={product}
+                deleteProduct={deleteProduct}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Box
+          sx={{
+            width: "450px",
+            p: 4,
+          }}
+        >
+          <Typography variant="h3">
+            No Products <span style={{ color: "red" }}>Found!</span>
+          </Typography>
+        </Box>
+      )}
     </Container>
   );
 }

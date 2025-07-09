@@ -7,10 +7,13 @@ import Layout from "./Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Cart from "./pages/Cart.jsx";
+import Order from "./pages/Orders.jsx";
+import OrderDetails from "./pages/OrderDetails.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
+import EditProduct from "./pages/EditProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +30,14 @@ const router = createBrowserRouter([
         Component: Cart,
       },
       {
+        path: "/orders",
+        Component: Order,
+      },
+      {
+        path: "/orders/:orderId",
+        Component: OrderDetails,
+      },
+      {
         path: "/login",
         Component: Login,
       },
@@ -39,8 +50,8 @@ const router = createBrowserRouter([
         Component: AddProduct,
       },
       {
-        path: "/admin/add-product/:productId",
-        Component: AddProduct,
+        path: "/admin/edit-product/:productId",
+        Component: EditProduct,
       },
       {
         path: "/admin/products",

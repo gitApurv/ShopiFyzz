@@ -11,25 +11,9 @@ import { useSnackbar } from "notistack";
 
 export default function AdminProductCard({ product, deleteProduct }) {
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
-  const showAlert = (message, variant) => {
-    enqueueSnackbar(message, {
-      variant: variant,
-      autoHideDuration: 1000,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "center",
-      },
-      style: {
-        backgroundColor: variant === "error" ? "red" : "#1976d2",
-      },
-    });
-  };
-
   const handleDeleteProduct = async () => {
     const id = product._id;
     deleteProduct(id);
-    showAlert("Product Deleted", "success");
   };
 
   return (
@@ -38,6 +22,7 @@ export default function AdminProductCard({ product, deleteProduct }) {
         width: 268,
         height: 300,
         m: 3,
+        border: "2px solid #1976d2",
         borderRadius: 1,
         boxShadow: 4,
         transition: "transform 0.3s",
@@ -64,7 +49,7 @@ export default function AdminProductCard({ product, deleteProduct }) {
           size="small"
           variant="contained"
           color="primary"
-          onClick={() => navigate(`/admin/add-product/${product._id}`)}
+          onClick={() => navigate(`/admin/edit-product/${product._id}`)}
         >
           Edit
         </Button>

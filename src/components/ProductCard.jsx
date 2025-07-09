@@ -42,8 +42,8 @@ export default function ProductCard({ product }) {
       sx={{
         width: 268,
         height: 300,
-        m: 3,
-        borderRadius: 1,
+        border: "2px solid #1976d2",
+        borderRadius: 2,
         boxShadow: 4,
         transition: "transform 0.3s",
         "&:hover": {

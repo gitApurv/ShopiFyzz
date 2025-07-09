@@ -14,11 +14,30 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
-export default function AddProduct() {
+export default function EditProduct() {
+  const { productId } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { register, setValue, handleSubmit } = useForm();
+
+  const laodProduct = async (productId) => {
+    // logic ?
+    const data = {
+      title: "Apurv",
+      price: "42",
+      description: "ShopiFyzz",
+    };
+    setValue("title", data.title);
+    setValue("price", data.price);
+    setValue("description", data.description);
+  };
+
+  useEffect(() => {
+    if (productId) {
+      laodProduct(productId);
+    }
+  }, [productId]);
 
   const showAlert = (message) => {
     enqueueSnackbar(message, {
@@ -73,9 +92,9 @@ export default function AddProduct() {
     }
   };
 
-  const handleAddProduct = async (data) => {
+  const handleEditProduct = async (data) => {
     setLoading(true);
-    showAlert("Product Added");
+    showAlert("Product Edited");
     navigate("/admin/products");
     setLoading(false);
   };
@@ -100,7 +119,7 @@ export default function AddProduct() {
         }}
       >
         <Typography variant="h4" fontFamily="Work sans">
-          {editing ? "Edit" : "Add"} Product
+          Edit Product
         </Typography>
       </Box>
       <Box
@@ -109,7 +128,7 @@ export default function AddProduct() {
           mt: 5,
         }}
       >
-        <form onSubmit={handleSubmit(handleAddProduct)}>
+        <form onSubmit={handleSubmit(handleEditProduct)}>
           <Stack spacing={2}>
             <FormControl required variant="outlined" fullWidth margin="normal">
               <FormLabel htmlFor="title">Title</FormLabel>
@@ -138,18 +157,17 @@ export default function AddProduct() {
                 {...register("description")}
               ></TextField>
             </FormControl>
-            <FormControl required variant="outlined" fullWidth margin="normal">
+            <FormControl variant="outlined" fullWidth margin="normal">
               <FormLabel htmlFor="image">Image</FormLabel>
               <TextField
                 id="image"
                 variant="outlined"
-                required
                 type="file"
                 onChange={(e) => handleImageUpload(e.target.files[0])}
               ></TextField>
             </FormControl>
             <Button variant="contained" disabled={loading} type="submit">
-              {loading ? <CircularProgress size={20} /> : "Add Product"}
+              {loading ? <CircularProgress size={20} /> : "Edit Product"}
             </Button>
           </Stack>
         </form>
