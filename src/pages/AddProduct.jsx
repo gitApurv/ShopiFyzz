@@ -100,7 +100,7 @@ export default function AddProduct() {
         }}
       >
         <Typography variant="h4" fontFamily="Work sans">
-          {editing ? "Edit" : "Add"} Product
+          Add Product
         </Typography>
       </Box>
       <Box
