@@ -1,6 +1,7 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import OrderCard from "../components/OrderCard";
 import { useEffect, useState } from "react";
+import { getOrders } from "../api/orders";
 
 const orders = Array(0).fill({
   _id: 168987687988876,
@@ -20,8 +21,14 @@ const orders = Array(0).fill({
 });
 
 export default function Orders() {
-  // const [orders, setOrders] = useState([]);
-  // useEffect(() => {}, []);
+  const [orders, setOrders] = useState([]);
+  const loadOrders = async () => {
+    const orders = await getOrders();
+    setOrders(orders);
+  };
+  useEffect(() => {
+    loadOrders;
+  }, [orders]);
 
   return (
     <Container

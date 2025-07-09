@@ -4,16 +4,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
 import { useNavigate } from "react-router";
-import { LoginContext } from "../context/Login";
-import { useSnackbar } from "notistack";
 
 export default function AdminProductCard({ product, deleteProduct }) {
   const navigate = useNavigate();
   const handleDeleteProduct = async () => {
-    const id = product._id;
-    deleteProduct(id);
+    const productId = product._id;
+    deleteProduct(productId);
   };
 
   return (

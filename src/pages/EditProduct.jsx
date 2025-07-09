@@ -13,6 +13,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
+import { getProduct, editProduct } from "../api/admin";
 
 export default function EditProduct() {
   const { productId } = useParams();
@@ -22,15 +23,10 @@ export default function EditProduct() {
   const { register, setValue, handleSubmit } = useForm();
 
   const laodProduct = async (productId) => {
-    // logic ?
-    const data = {
-      title: "Apurv",
-      price: "42",
-      description: "ShopiFyzz",
-    };
-    setValue("title", data.title);
-    setValue("price", data.price);
-    setValue("description", data.description);
+    const product = getProduct(productId);
+    setValue("title", product.title);
+    setValue("price", product.price);
+    setValue("description", product.description);
   };
 
   useEffect(() => {
@@ -39,16 +35,16 @@ export default function EditProduct() {
     }
   }, [productId]);
 
-  const showAlert = (message) => {
+  const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
-      variant: "success",
+      variant: variant,
       autoHideDuration: 3000,
       anchorOrigin: {
         vertical: "bottom",
         horizontal: "left",
       },
       style: {
-        backgroundColor: "#1976d2",
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
       },
     });
   };
@@ -92,11 +88,20 @@ export default function EditProduct() {
     }
   };
 
-  const handleEditProduct = async (data) => {
+  const handleEditProduct = async (product) => {
     setLoading(true);
-    showAlert("Product Edited");
-    navigate("/admin/products");
-    setLoading(false);
+    try {
+      const response = editProduct(product);
+      if (!response.ok) {
+        throw new Error("Failed to Edit Product");
+      }
+      showAlert("Product Edited", "success");
+      navigate("/admin/products");
+    } catch (err) {
+      showAlert(err.message, "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

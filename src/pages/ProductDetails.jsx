@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSnackbar } from "notistack";
 import { LoginContext } from "../context/Login";
+import { getProduct } from "../api/products";
 
 const product = {
   _id: 1,
@@ -20,9 +21,17 @@ const product = {
 
 export default function ProductDetails() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-  // const { productId } = useParams();
-  // const [product, setProduct] = useState({});
-  // useEffect(() => {}, [productId]);
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+
+  const loadProduct = async (id) => {
+    const product = getProduct(id);
+    setProduct(product);
+  };
+
+  useEffect(() => {
+    loadProduct();
+  }, [productId]);
 
   const { enqueueSnackbar } = useSnackbar();
   const showAlert = (message, variant) => {

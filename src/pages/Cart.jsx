@@ -2,6 +2,8 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import CartCard from "../components/CartCard";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { getCart } from "../api/cart";
+import { createOrder } from "../api/orders";
 
 const cart = {
   _id: 1,
@@ -21,8 +23,20 @@ const cart = {
 
 export default function Cart() {
   const navigate = useNavigate();
-  // const [cart, setCart] = useState({});
-  // useEffect(() => {}, []);
+  const [cart, setCart] = useState({});
+  const loadCart = async () => {
+    const cart = await getCart();
+    setCart(cart);
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, [cart]);
+
+  const handlePlaceOrder = () => {
+    createOrder();
+    navigate("/orders");
+  };
 
   return (
     <Container
@@ -68,7 +82,9 @@ export default function Cart() {
               <Typography variant="h6" mb={2}>
                 Total : Rs. {cart.totalPrice}
               </Typography>
-              <Button variant="contained">Place Order</Button>
+              <Button variant="contained" onClick={handlePlaceOrder}>
+                Place Order
+              </Button>
             </Box>
           </Grid>
         </Grid>

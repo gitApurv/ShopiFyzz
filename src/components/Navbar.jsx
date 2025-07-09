@@ -14,6 +14,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { AccountBox, MenuOpen } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
+import { logOutUser } from "../api/auth";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -34,6 +35,11 @@ export default function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogOut = async () => {
+    logOutUser();
+    setIsLoggedIn(false);
   };
 
   return (
@@ -172,7 +178,7 @@ export default function Navbar() {
                     Admin Products
                   </Typography>
                 </MenuItem>
-                <MenuItem key={2}>
+                <MenuItem key={2} onClick={handleLogOut}>
                   <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
                 </MenuItem>
               </Menu>
@@ -317,7 +323,7 @@ export default function Navbar() {
                     Admin Products
                   </Typography>
                 </MenuItem>
-                <MenuItem key={2}>
+                <MenuItem key={2} onClick={handleLogOut}>
                   <Typography sx={{ textAlign: "center" }}>LogOut</Typography>
                 </MenuItem>
               </Menu>

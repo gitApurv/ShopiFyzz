@@ -16,6 +16,7 @@ import {
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { loginUser } from "../api/auth";
 
 export default function Login() {
   const { enqueueSnackbar } = useSnackbar();
@@ -49,8 +50,15 @@ export default function Login() {
 
   const handleLogin = async (data) => {
     setLoading(true);
-    showAlert("Failed to Login");
-    setLoading(false);
+    try {
+      const response = await loginUser(data);
+      if (!response.ok) throw new Error(response.message);
+      navigate("/");
+    } catch (err) {
+      showAlert(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

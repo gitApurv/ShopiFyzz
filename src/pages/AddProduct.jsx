@@ -10,9 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
+import { addProduct } from "../api/admin";
 
 export default function AddProduct() {
   const { enqueueSnackbar } = useSnackbar();
@@ -20,16 +21,16 @@ export default function AddProduct() {
   const [loading, setLoading] = useState(false);
   const { register, setValue, handleSubmit } = useForm();
 
-  const showAlert = (message) => {
+  const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
-      variant: "success",
+      variant: { variant },
       autoHideDuration: 3000,
       anchorOrigin: {
         vertical: "bottom",
         horizontal: "left",
       },
       style: {
-        backgroundColor: "#1976d2",
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
       },
     });
   };
@@ -67,17 +68,26 @@ export default function AddProduct() {
       const url = jsonRes.secure_url;
       setValue("image", url);
     } catch (err) {
-      showAlert(err.message);
+      showAlert(err.message, "error");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleAddProduct = async (data) => {
+  const handleAddProduct = async (product) => {
     setLoading(true);
-    showAlert("Product Added");
-    navigate("/admin/products");
-    setLoading(false);
+    try {
+      const response = await addProduct(product);
+      if (!response.ok) {
+        throw new Error("Failed to Add Product");
+      }
+      showAlert("Product Added", "success");
+      navigate("/admin/products");
+    } catch (err) {
+      showAlert(err.message, "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

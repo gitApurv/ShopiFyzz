@@ -1,6 +1,7 @@
 import { Container, Grid } from "@mui/material";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
+import { getAllProducts } from "../api/products";
 
 const products = Array(8).fill({
   _id: 1,
@@ -14,8 +15,16 @@ const products = Array(8).fill({
 });
 
 export default function Home() {
-  // const [products, setProducts] = useState([]);
-  // useEffect(() => {}, []);
+  const [products, setProducts] = useState([]);
+
+  const loadAllProducts = async () => {
+    const allProducts = await getAllProducts();
+    setProducts(allProducts);
+  };
+
+  useEffect(() => {
+    loadAllProducts();
+  }, [products]);
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>

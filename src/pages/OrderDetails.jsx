@@ -2,6 +2,8 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import OrderDetailsCard from "../components/OrderDetailsCard";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { getOrder } from "../api/orders";
+import { downloadReceipt } from "../api/orders";
 
 const order = {
   _id: 1,
@@ -18,9 +20,19 @@ const order = {
 };
 
 export default function OrderDetails() {
-  // const { orderId } = useParams();
-  // const [order, setOrder] = useState([]);
-  // useEffect(() => {}, [orderId]);
+  const { orderId } = useParams();
+  const [order, setOrder] = useState({});
+  const loadOrder = async (id) => {
+    const order = getOrder(id);
+    setOrder(order);
+  };
+  useEffect(() => {
+    loadOrder();
+  }, [orderId]);
+
+  const handleDownloadReceipt = () => {
+    dwonloadReceipt(orderId);
+  };
 
   return (
     <Container
@@ -71,7 +83,9 @@ export default function OrderDetails() {
             <Typography variant="h6" mb={2}>
               Total : Rs. {order.totalPrice}
             </Typography>
-            <Button variant="contained">Generate Receipt</Button>
+            <Button variant="contained" onClick={handleDownloadReceipt}>
+              Download Receipt
+            </Button>
           </Box>
         </Grid>
       </Grid>

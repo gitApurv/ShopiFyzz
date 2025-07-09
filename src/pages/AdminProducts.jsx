@@ -1,6 +1,8 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import AdminProductCard from "../components/AdminProductCard";
 import { useSnackbar } from "notistack";
+import { getProducts } from "../api/admin";
+import { deleteProduct } from "../api/admin";
 
 const products = Array(2).fill({
   _id: 1,
@@ -14,10 +16,18 @@ const products = Array(2).fill({
 });
 
 export default function AdminProducts() {
-  // const [products, setProducts] = useState([]);
-  // useEffect(() => {}, []);
-
   const { enqueueSnackbar } = useSnackbar();
+  const [products, setProducts] = useState([]);
+
+  const loadProducts = async () => {
+    const products = await getProducts();
+    setProducts(products);
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, [products]);
+
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
       variant: variant,
@@ -32,8 +42,17 @@ export default function AdminProducts() {
     });
   };
 
-  const deleteProduct = async (id) => {
-    showAlert("Product Deleted", "success");
+  const delProduct = async (id) => {
+    try {
+      const response = await deleteProduct(id);
+      if (!response.ok) {
+        throw new Error("Failed to Delete Product");
+      }
+      showAlert("Product Deleted", "success");
+      loadProducts();
+    } catch (err) {
+      showAlert(err.message, "error");
+    }
   };
 
   return (
@@ -42,10 +61,7 @@ export default function AdminProducts() {
         <Grid container spacing={2} justifyContent="center">
           {products.map((product) => (
             <Grid item key={product._id} xs={12} sm={6} md={4} lg={3} xl={2}>
-              <AdminProductCard
-                product={product}
-                deleteProduct={deleteProduct}
-              />
+              <AdminProductCard product={product} deleteProduct={delProduct} />
             </Grid>
           ))}
         </Grid>

@@ -16,6 +16,7 @@ import {
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { signUpUser } from "../api/auth";
 
 export default function Signup() {
   const { enqueueSnackbar } = useSnackbar();
@@ -49,8 +50,15 @@ export default function Signup() {
 
   const handleSignup = async (data) => {
     setLoading(true);
-    showAlert("Failed to Signup");
-    setLoading(false);
+    try {
+      const response = await signUpUser(data);
+      if (!response.ok) throw new Error(response.message);
+      navigate("/");
+    } catch (err) {
+      showAlert(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
