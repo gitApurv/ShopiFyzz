@@ -91,7 +91,7 @@ exports.login = async (req, res, next) => {
 };
 
 exports.logout = async (req, res, next) => {
-  res.clearCookie("accesToken", {
+  res.clearCookie("accessToken", {
     httpOnly: true,
     secure: true,
     sameSite: "None",
