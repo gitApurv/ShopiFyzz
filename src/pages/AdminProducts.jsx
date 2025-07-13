@@ -3,6 +3,7 @@ import AdminProductCard from "../components/AdminProductCard";
 import { useSnackbar } from "notistack";
 import { getProducts } from "../api/admin";
 import { deleteProduct } from "../api/admin";
+import { useEffect, useState } from "react";
 
 const products = Array(2).fill({
   _id: 1,
@@ -26,7 +27,7 @@ export default function AdminProducts() {
 
   useEffect(() => {
     loadProducts();
-  }, [products]);
+  }, []);
 
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {

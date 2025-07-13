@@ -4,20 +4,7 @@ import { useParams } from "react-router";
 import { useSnackbar } from "notistack";
 import { LoginContext } from "../context/Login";
 import { getProduct } from "../api/products";
-
-const product = {
-  _id: 1,
-  title: "Book",
-  price: 23,
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus, odio eligendi quisquam debitis omnis voluptas labore officiis excepturi suscipit accusamus deleniti iusto inventore! Sunt eum architecto asperiores tempora commodi!",
-  imageUrl:
-    "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
-  user: {
-    _id: 1,
-    name: "Apurv",
-  },
-};
+import { addProductToCart } from "../api/cart";
 
 export default function ProductDetails() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
@@ -25,13 +12,14 @@ export default function ProductDetails() {
   const [product, setProduct] = useState({});
 
   const loadProduct = async (productId) => {
-    const product = getProduct(productId);
+    const product = await getProduct(productId);
+    console.log(product);
     setProduct(product);
   };
 
   useEffect(() => {
     loadProduct(productId);
-  }, [productId]);
+  }, []);
 
   const { enqueueSnackbar } = useSnackbar();
   const showAlert = (message, variant) => {
@@ -53,6 +41,7 @@ export default function ProductDetails() {
       showAlert("Unauthorized : Login First", "error");
       return;
     }
+    addProductToCart(productId);
     showAlert("Product added to cart", "success");
   };
 
@@ -62,7 +51,7 @@ export default function ProductDetails() {
         <Grid item xs={12} md={5}>
           <Box
             component="img"
-            src={product.imageUrl}
+            src={product.image}
             alt={product.title}
             sx={{
               width: "100%",
@@ -91,7 +80,7 @@ export default function ProductDetails() {
             {product.description}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            Seller: {product.user.name}
+            Seller: {product.user?.name}
           </Typography>
           <Button
             sx={{ mt: 2 }}

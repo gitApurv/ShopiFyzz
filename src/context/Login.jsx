@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export const LoginContext = createContext();
 
 export function LoginProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/check`, {

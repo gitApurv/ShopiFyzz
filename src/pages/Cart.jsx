@@ -1,28 +1,14 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import CartCard from "../components/CartCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getCart } from "../api/cart";
 import { createOrder } from "../api/orders";
-
-const cart = {
-  _id: 1,
-  totalPrice: 0,
-  products: Array(0).fill({
-    _id: 1,
-    title: "Book",
-    price: 23,
-    imageUrl:
-      "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
-    quantity: 1,
-  }),
-  user: {
-    _id: 1,
-  },
-};
+import { LoginContext } from "../context/Login";
 
 export default function Cart() {
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const [cart, setCart] = useState({});
 
   const loadCart = async () => {
@@ -32,10 +18,10 @@ export default function Cart() {
 
   useEffect(() => {
     loadCart();
-  }, [cart]);
+  }, []);
 
-  const handlePlaceOrder = () => {
-    createOrder();
+  const handlePlaceOrder = async () => {
+    const response = await createOrder();
     navigate("/orders");
   };
 
@@ -46,13 +32,13 @@ export default function Cart() {
         maxWidth: "xl",
       }}
     >
-      {cart.products.length > 0 ? (
+      {isLoggedIn && cart.items?.length > 0 ? (
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              {cart.products.map((cartProduct, index) => (
+              {cart.items.map((cartProduct, index) => (
                 <Box item key={index}>
-                  <CartCard key={index} cartProduct={cartProduct} />
+                  <CartCard cartProduct={cartProduct} loadCart={loadCart} />
                 </Box>
               ))}
             </Box>

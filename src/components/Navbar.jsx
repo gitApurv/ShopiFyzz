@@ -40,6 +40,8 @@ export default function Navbar() {
   const handleLogOut = async () => {
     logOutUser();
     setIsLoggedIn(false);
+    setAnchorElUser(null);
+    navigate("/");
   };
 
   return (

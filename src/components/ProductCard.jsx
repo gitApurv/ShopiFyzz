@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { LoginContext } from "../context/Login";
 import { useSnackbar } from "notistack";
+import { addProductToCart } from "../api/cart";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -33,7 +34,8 @@ export default function ProductCard({ product }) {
       showAlert("Unauthorized : Login First", "error");
       return;
     }
-    const id = product._id;
+    const productId = product._id;
+    addProductToCart(productId);
     showAlert("Product added to cart", "success");
   };
 
@@ -56,7 +58,7 @@ export default function ProductCard({ product }) {
         component="img"
         alt={product.title}
         height="140"
-        image={product.imageUrl}
+        image={product.image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

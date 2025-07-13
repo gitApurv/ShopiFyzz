@@ -62,11 +62,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <SnackbarProvider maxSnack={3}>
-      <LoginProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </LoginProvider>
-    </SnackbarProvider>
-  </StrictMode>
+  <SnackbarProvider maxSnack={3}>
+    <LoginProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </LoginProvider>
+  </SnackbarProvider>
 );

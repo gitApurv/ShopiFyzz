@@ -14,11 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { signUpUser } from "../api/auth";
+import { LoginContext } from "../context/Login";
 
 export default function Signup() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -53,6 +55,7 @@ export default function Signup() {
     try {
       const response = await signUpUser(data);
       if (!response.ok) throw new Error(response.message);
+      setIsLoggedIn(true);
       navigate("/");
     } catch (err) {
       showAlert(err.message);

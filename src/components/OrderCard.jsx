@@ -8,6 +8,7 @@ export default function OrderCard({ order }) {
   return (
     <Card
       sx={{
+        p: 4,
         border: "2px solid #1976d2",
         borderLeft: "15px solid #1976d2",
         borderRadius: 1,
@@ -43,9 +44,9 @@ export default function OrderCard({ order }) {
             wordBreak: "break-word",
           }}
         >
-          {order.products.map((product) => (
+          {order.items.map((item) => (
             <Typography component="div" variant="h5">
-              {product.title}
+              {item.product.title}
             </Typography>
           ))}
         </Grid>

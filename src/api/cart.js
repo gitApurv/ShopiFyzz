@@ -14,6 +14,13 @@ export async function addProductToCart(productId) {
   return response.json();
 }
 
+export async function removeProductFromCart(productId) {
+  const response = await fetch(`${API_URl}/remove-from-cart/${productId}`, {
+    credentials: "include",
+  });
+  return response.json();
+}
+
 export async function deleteProductFromCart(productId) {
   const response = await fetch(`${API_URl}/delete-from-cart/${productId}`, {
     credentials: "include",

@@ -4,11 +4,31 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { Button, ButtonGroup, Chip, Fab } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import {
+  removeProductFromCart,
+  addProductToCart,
+  deleteProductFromCart,
+} from "../api/cart";
 
-export default function CartCard({ cartProduct }) {
+export default function CartCard({ cartProduct, loadCart }) {
+  const handleRemove = async () => {
+    const response = await removeProductFromCart(cartProduct.product._id);
+    loadCart();
+  };
+
+  const handleAdd = async () => {
+    const response = await addProductToCart(cartProduct.product._id);
+    loadCart();
+  };
+
+  const handleDelete = async () => {
+    const response = await deleteProductFromCart(cartProduct.product._id);
+    loadCart();
+  };
+
   return (
     <Card
       sx={{
@@ -27,8 +47,8 @@ export default function CartCard({ cartProduct }) {
       <CardMedia
         component="img"
         sx={{ width: 200 }}
-        image={cartProduct.imageUrl}
-        alt={cartProduct.title}
+        image={cartProduct.product.image}
+        alt={cartProduct.product.title}
       />
       <Box
         sx={{
@@ -40,10 +60,10 @@ export default function CartCard({ cartProduct }) {
       >
         <CardContent>
           <Typography component="div" variant="h5">
-            {cartProduct.title}
+            {cartProduct.product.title}
           </Typography>
           <Typography variant="h6" component="div">
-            Rs. {cartProduct.price}
+            Rs. {cartProduct.product.price}
           </Typography>
         </CardContent>
       </Box>
@@ -51,15 +71,19 @@ export default function CartCard({ cartProduct }) {
         sx={{
           display: "flex",
           alignItems: "center",
-          pl: 5,
+          pl: 4,
         }}
       >
         <ButtonGroup variant="contained">
-          <Button disabled={cartProduct.quantity == 1} sx={{ bgcolor: "grey" }}>
+          <Button
+            disabled={cartProduct.quantity == 1}
+            sx={{ bgcolor: "grey" }}
+            onClick={handleRemove}
+          >
             <RemoveIcon />
           </Button>
-          <Button sx={{ cursor: "default" }}>1</Button>
-          <Button sx={{ bgcolor: "grey" }}>
+          <Button sx={{ cursor: "default" }}>{cartProduct.quantity}</Button>
+          <Button sx={{ bgcolor: "grey" }} onClick={handleAdd}>
             <AddIcon />
           </Button>
         </ButtonGroup>
@@ -72,7 +96,7 @@ export default function CartCard({ cartProduct }) {
           marginRight: 5,
         }}
       >
-        <Button>
+        <Button onClick={handleDelete}>
           <DeleteIcon sx={{ color: "red", fontSize: 50 }} />
         </Button>
       </Box>

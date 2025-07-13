@@ -5,31 +5,18 @@ import { useParams } from "react-router";
 import { getOrder } from "../api/orders";
 import { downloadReceipt } from "../api/orders";
 
-const order = {
-  _id: 1,
-  totalPrice: 250,
-  products: Array(5).fill({
-    _id: 1,
-    title: "Book",
-    price: 23,
-    imageUrl:
-      "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
-    quantity: 1,
-  }),
-  createdAt: "12/7/2025",
-};
-
 export default function OrderDetails() {
   const { orderId } = useParams();
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState({ items: [] });
 
   const loadOrder = async (orderId) => {
-    const order = getOrder(orderId);
+    const order = await getOrder(orderId);
     setOrder(order);
   };
+
   useEffect(() => {
     loadOrder(orderId);
-  }, [orderId]);
+  }, []);
 
   const handleDownloadReceipt = () => {
     downloadReceipt(orderId);
@@ -45,9 +32,9 @@ export default function OrderDetails() {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {order.products.map((product, index) => (
+            {order.items.map((item, index) => (
               <Box item key={index}>
-                <OrderDetailsCard key={index} product={product} />
+                <OrderDetailsCard key={index} item={item} />
               </Box>
             ))}
           </Box>

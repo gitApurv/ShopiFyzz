@@ -10,20 +10,21 @@ import {
   Typography,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 import { getProduct, editProduct } from "../api/admin";
 
 export default function EditProduct() {
   const { productId } = useParams();
+  const [product, setProduct] = useState();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { register, setValue, handleSubmit } = useForm();
 
   const laodProduct = async (productId) => {
-    const product = getProduct(productId);
+    const product = await getProduct(productId);
     setValue("title", product.title);
     setValue("price", product.price);
     setValue("description", product.description);
@@ -33,7 +34,7 @@ export default function EditProduct() {
     if (productId) {
       laodProduct(productId);
     }
-  }, [productId]);
+  }, []);
 
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
@@ -91,9 +92,9 @@ export default function EditProduct() {
   const handleEditProduct = async (product) => {
     setLoading(true);
     try {
-      const response = editProduct(productId, product);
+      const response = await editProduct(productId, product);
       if (!response.ok) {
-        throw new Error("Failed to Edit Product");
+        throw new Error(response.message);
       }
       showAlert("Product Edited", "success");
       navigate("/admin/products");

@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-export default function OrderDetailsCard({ product }) {
+export default function OrderDetailsCard({ item }) {
   return (
     <Card
       sx={{
@@ -23,8 +23,8 @@ export default function OrderDetailsCard({ product }) {
       <CardMedia
         component="img"
         sx={{ width: 200 }}
-        image={product.imageUrl}
-        alt={product.title}
+        image={item.product.image}
+        alt={item.product.title}
       />
       <Box
         sx={{
@@ -36,10 +36,10 @@ export default function OrderDetailsCard({ product }) {
       >
         <CardContent>
           <Typography component="div" variant="h5">
-            {product.title}
+            {item.product.title}
           </Typography>
           <Typography variant="h6" component="div">
-            Rs. {product.price}
+            Rs. {item.product.price}
           </Typography>
         </CardContent>
       </Box>
@@ -53,7 +53,7 @@ export default function OrderDetailsCard({ product }) {
       >
         <CardContent>
           <Typography component="div" variant="h5">
-            Quantity : {product.quantity}
+            Quantity : {item.quantity}
           </Typography>
         </CardContent>
       </Box>

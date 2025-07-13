@@ -28,7 +28,7 @@ export async function addProduct(product) {
 
 export async function editProduct(productId, product) {
   const response = await fetch(`${API_URl}/admin/edit-product/${productId}`, {
-    method: "POST",
+    method: "PUT",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export async function editProduct(productId, product) {
 
 export async function deleteProduct(productId) {
   const response = await fetch(`${API_URl}/admin/delete/${productId}`, {
-    method: "POST",
+    method: "DELETE",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",

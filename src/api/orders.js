@@ -22,7 +22,7 @@ export async function createOrder() {
 }
 
 export async function downloadReceipt(orderId) {
-  const response = await fetch(`${API_URl}/downlaod-receipt/${orderId}`, {
+  const response = await fetch(`${API_URl}/download-receipt/${orderId}`, {
     credentials: "include",
   });
   return response.json();

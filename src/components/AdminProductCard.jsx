@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 
 export default function AdminProductCard({ product, deleteProduct }) {
   const navigate = useNavigate();
+
   const handleDeleteProduct = async () => {
     const productId = product._id;
     deleteProduct(productId);
@@ -33,7 +34,7 @@ export default function AdminProductCard({ product, deleteProduct }) {
         component="img"
         alt={product.title}
         height="140"
-        image={product.imageUrl}
+        image={product.image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
