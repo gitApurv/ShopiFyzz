@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 exports.getAdminProducts = async (req, res, next) => {
   const userId = req.user.id;
@@ -46,6 +47,15 @@ exports.editProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
   const productId = req.params.productId;
+  const userId = req.user.id;
+  const user = await User.findById(userId);
+  const cart = user.cart;
+  const updatedCart = cart.filter(
+    (cartProduct) => cartProduct.product.toString() !== productId.toString()
+  );
+  const updatedUser = await User.findByIdAndUpdate(userId, {
+    $set: { cart: updatedCart },
+  });
   const response = await Product.findByIdAndDelete(productId);
   res.status(200).json({
     ok: true,

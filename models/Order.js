@@ -6,13 +6,12 @@ const orderSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    items: {
+    products: {
       type: [
         {
           product: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Object,
             required: true,
-            ref: "Product",
           },
           quantity: {
             type: Number,
@@ -20,6 +19,7 @@ const orderSchema = mongoose.Schema(
           },
         },
       ],
+      default: [],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
