@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
+import { Box } from "@mui/material";
 
 export default function AdminProductCard({ product, deleteProduct }) {
   const navigate = useNavigate();
@@ -18,11 +19,13 @@ export default function AdminProductCard({ product, deleteProduct }) {
     <Card
       sx={{
         width: 268,
-        height: 300,
-        m: 3,
+        height: 360,
         border: "2px solid #1976d2",
-        borderRadius: 1,
+        borderRadius: 2,
         boxShadow: 4,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         transition: "transform 0.3s",
         "&:hover": {
           transform: "scale(1.03)",
@@ -30,19 +33,47 @@ export default function AdminProductCard({ product, deleteProduct }) {
         },
       }}
     >
-      <CardMedia
-        component="img"
-        alt={product.title}
-        height="140"
-        image={product.image}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <Box sx={{ height: 240, width: "100%", overflow: "hidden" }}>
+        <CardMedia
+          component="img"
+          alt={product.title}
+          image={product.image}
+          sx={{
+            height: "100%",
+            width: "100%",
+            objectFit: "contain",
+            backgroundColor: "#f8f8f8",
+          }}
+        />
+      </Box>
+      <CardContent
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography
+          gutterBottom
+          variant="body1"
+          fontWeight="bold"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            minHeight: "48px",
+          }}
+        >
           {product.title}
         </Typography>
-        <Typography variant="h6">Rs. {product.price}</Typography>
+        <Typography variant="body1" fontWeight="bold">
+          Rs. {product.price}
+        </Typography>
       </CardContent>
-      <CardActions sx={{ paddingLeft: 2 }}>
+      <CardActions sx={{ paddingX: 2, paddingBottom: 2 }}>
         <Button
           size="small"
           variant="contained"

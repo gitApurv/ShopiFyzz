@@ -160,6 +160,8 @@ export default function EditProduct() {
                 id="description"
                 variant="outlined"
                 required
+                multiline
+                rows={4}
                 {...register("description")}
               ></TextField>
             </FormControl>

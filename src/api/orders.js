@@ -25,5 +25,12 @@ export async function downloadReceipt(orderId) {
   const response = await fetch(`${API_URl}/download-receipt/${orderId}`, {
     credentials: "include",
   });
-  return response.json();
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `order-${orderId}.pdf`;
+  document.body.appendChild(a); // required for Firefox
+  a.click();
+  a.remove();
 }

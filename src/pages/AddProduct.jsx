@@ -145,6 +145,8 @@ export default function AddProduct() {
                 id="description"
                 variant="outlined"
                 required
+                multiline
+                rows={4}
                 {...register("description")}
               ></TextField>
             </FormControl>
