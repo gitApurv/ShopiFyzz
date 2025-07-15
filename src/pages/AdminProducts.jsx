@@ -64,7 +64,7 @@ export default function AdminProducts() {
           <CircularProgress />
         </Box>
       ) : products.length > 0 ? (
-        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
           <Grid container spacing={4}>
             {products.map((product, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
