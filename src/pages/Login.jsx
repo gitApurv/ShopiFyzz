@@ -1,5 +1,9 @@
-import { useForm } from "react-hook-form";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Visibility,
+  VisibilityOff,
+  MailOutline,
+  Password,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -13,9 +17,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 import { loginUser } from "../api/auth";
 import { LoginContext } from "../context/Login";
 
@@ -65,59 +70,77 @@ export default function Login() {
   };
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Container maxWidth="sm">
       <Box
         sx={{
-          width: "500px",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
-          alignContent: "center",
-          mt: 5,
+          py: 4,
         }}
       >
-        <Typography variant="h4" fontFamily="Work sans">
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight="bold"
+          color="primary"
+          gutterBottom
+          sx={{ mb: 4 }}
+        >
           Login
         </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "500px",
-          mt: 5,
-        }}
-      >
         <form onSubmit={handleSubmit(handleLogin)}>
-          <Stack spacing={2}>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="email">Email</FormLabel>
+          <Stack spacing={3}>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Email
+              </FormLabel>
               <TextField
-                id="email"
-                variant="outlined"
-                required
                 {...register("email")}
-              ></TextField>
-            </FormControl>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                id="password"
-                type={showPassword ? "text" : "password"}
-                variant="outlined"
                 required
-                {...register("password")}
+                type="email"
+                placeholder="Enter your email"
                 InputProps={{
-                  endAdornment: (
+                  startAdornment: (
                     <InputAdornment position="start">
+                      <MailOutline color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Password
+              </FormLabel>
+              <TextField
+                {...register("password")}
+                required
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Password color="primary" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
                       <IconButton
-                        onMouseDown={handleMouseDownPassword}
                         onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -127,9 +150,51 @@ export default function Login() {
                 }}
               />
             </FormControl>
-            <Button variant="contained" disabled={loading} type="submit">
-              {loading ? <CircularProgress size={20} /> : "Login"}
+            <Button
+              variant="contained"
+              size="large"
+              disabled={loading}
+              type="submit"
+              sx={{
+                mt: 2,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: "bold",
+                textTransform: "none",
+                fontSize: "1rem",
+                boxShadow: 2,
+                "&:hover": {
+                  transform: "translateY(-1px)",
+                  boxShadow: 3,
+                },
+              }}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Login"
+              )}
             </Button>
+
+            <Typography
+              variant="body2"
+              textAlign="center"
+              sx={{ mt: 2, color: "text.secondary" }}
+            >
+              Don't have an account?
+              <Button
+                color="primary"
+                onClick={() => navigate("/signup")}
+                sx={{
+                  textTransform: "none",
+                  fontWeight: "bold",
+                  p: 0,
+                  ml: 0.5,
+                }}
+              >
+                SignUp
+              </Button>
+            </Typography>
           </Stack>
         </form>
       </Box>

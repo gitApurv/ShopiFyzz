@@ -5,14 +5,16 @@ import {
   Container,
   FormControl,
   FormLabel,
+  InputAdornment,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
+import { Title, CurrencyRupee, Description, Image } from "@mui/icons-material";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 import { addProduct } from "../api/admin";
 
 export default function AddProduct() {
@@ -91,77 +93,146 @@ export default function AddProduct() {
   };
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Container maxWidth="sm">
       <Box
         sx={{
-          width: "500px",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
-          alignContent: "center",
-          mt: 5,
+          py: 4,
         }}
       >
-        <Typography variant="h4" fontFamily="Work sans">
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight="bold"
+          color="primary"
+          gutterBottom
+          sx={{ mb: 2 }}
+        >
           Add Product
         </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "500px",
-          mt: 5,
-        }}
-      >
         <form onSubmit={handleSubmit(handleAddProduct)}>
           <Stack spacing={2}>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="title">Title</FormLabel>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Title
+              </FormLabel>
               <TextField
-                id="title"
-                variant="outlined"
-                required
                 {...register("title")}
-              ></TextField>
-            </FormControl>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="price">Price</FormLabel>
-              <TextField
-                id="price"
-                variant="outlined"
                 required
-                {...register("price")}
-              ></TextField>
+                placeholder="Enter product title"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Title color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </FormControl>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="description">Description</FormLabel>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Price
+              </FormLabel>
               <TextField
-                id="description"
-                variant="outlined"
+                {...register("price")}
+                required
+                placeholder="Enter product price"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <CurrencyRupee color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Description
+              </FormLabel>
+              <TextField
+                {...register("description")}
                 required
                 multiline
                 rows={4}
-                {...register("description")}
-              ></TextField>
+                placeholder="Enter product description"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Description color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </FormControl>
-            <FormControl required variant="outlined" fullWidth margin="normal">
-              <FormLabel htmlFor="image">Image</FormLabel>
+            <FormControl required variant="outlined" fullWidth>
+              <FormLabel
+                sx={{
+                  mb: 1,
+                  fontWeight: 500,
+                  color: "text.primary",
+                }}
+              >
+                Image
+              </FormLabel>
               <TextField
-                id="image"
-                variant="outlined"
-                required
-                type="file"
                 onChange={(e) => handleImageUpload(e.target.files[0])}
-              ></TextField>
+                type="file"
+                required
+                placeholder="Upload product image"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Image color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </FormControl>
-            <Button variant="contained" disabled={loading} type="submit">
-              {loading ? <CircularProgress size={20} /> : "Add Product"}
+            <Button
+              variant="contained"
+              size="large"
+              disabled={loading}
+              type="submit"
+              sx={{
+                mt: 2,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: "bold",
+                textTransform: "none",
+                fontSize: "1rem",
+                boxShadow: 2,
+                "&:hover": {
+                  transform: "translateY(-1px)",
+                  boxShadow: 3,
+                },
+              }}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Add Product"
+              )}
             </Button>
           </Stack>
         </form>

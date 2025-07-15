@@ -8,12 +8,10 @@ import {
   Divider,
 } from "@mui/material";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import DownloadIcon from "@mui/icons-material/Download";
-
-import OrderDetailsCard from "../components/OrderDetailsCard";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import OrderDetailsCard from "../components/OrderDetailsCard";
 import { getOrder } from "../api/orders";
 import { downloadReceipt } from "../api/orders";
 
@@ -92,32 +90,31 @@ export default function OrderDetails() {
                   width: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  p: { xs: 1, md: 3 },
+                  p: { xs: 0.5, md: 3 },
                   border: "2px solid #1976d2",
                   borderLeft: "8px solid #1976d2",
                   borderRadius: 2,
-                  backgroundColor: "#fff",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  boxShadow: 3,
                   transition: "all 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-5px)",
-                    boxShadow: "0 6px 16px rgba(0,0,0,0.12)",
+                    boxShadow: 6,
                   },
                 }}
               >
                 <Box sx={{ mb: 3 }}>
-                  <Typography variant="h6" color="primary" gutterBottom>
+                  <Typography variant="h6" fontWeight="bold" gutterBottom>
                     Order Summary
                   </Typography>
                   <Divider sx={{ mb: 2 }} />
-                  <Typography variant="body1" sx={{ mb: 1 }}>
+                  <Typography variant="body1" fontWeight="bold" sx={{ mb: 1 }}>
                     <strong>Order ID: </strong> {order._id}
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
+                  <Typography variant="body1" fontWeight="bold" sx={{ mb: 1 }}>
                     <strong>Order Date: </strong>
                     {new Date(order.createdAt).toLocaleDateString()}
                   </Typography>
-                  <Typography variant="h6" color="primary" sx={{ mt: 3 }}>
+                  <Typography variant="h6" fontWeight="bold" sx={{ mt: 3 }}>
                     Total Amount: Rs. {order.totalPrice}
                   </Typography>
                 </Box>

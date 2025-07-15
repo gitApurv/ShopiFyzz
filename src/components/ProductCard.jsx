@@ -4,12 +4,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Box, Chip, Rating } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
-import { LoginContext } from "../context/Login";
 import { useSnackbar } from "notistack";
+import { LoginContext } from "../context/Login";
 import { addProductToCart } from "../api/cart";
-import { Box } from "@mui/material";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -43,22 +45,29 @@ export default function ProductCard({ product }) {
   return (
     <Card
       sx={{
-        width: 268,
-        height: 360,
+        width: 325,
+        height: 420,
         border: "2px solid #1976d2",
         borderRadius: 2,
         boxShadow: 4,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        transition: "transform 0.3s",
+        transition: "all 0.3s ease-in-out",
         "&:hover": {
-          transform: "scale(1.03)",
+          transform: "translateY(-5px)",
           boxShadow: 6,
         },
       }}
     >
-      <Box sx={{ height: 240, width: "100%", overflow: "hidden" }}>
+      <Box
+        sx={{
+          height: 260,
+          width: "100%",
+          overflow: "hidden",
+          borderRadius: "16px 16px 0 0",
+        }}
+      >
         <CardMedia
           component="img"
           alt={product.title}
@@ -67,7 +76,10 @@ export default function ProductCard({ product }) {
             height: "100%",
             width: "100%",
             objectFit: "contain",
-            backgroundColor: "#f8f8f8",
+            transition: "transform 0.3s ease",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
           }}
         />
       </Box>
@@ -76,42 +88,60 @@ export default function ProductCard({ product }) {
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          gap: 1,
+          padding: 2,
         }}
       >
         <Typography
-          gutterBottom
-          variant="body1"
-          fontWeight="bold"
+          variant="h6"
           sx={{
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
-            minHeight: "48px",
+            minHeight: "3.6rem",
+            fontWeight: "bold",
           }}
         >
           {product.title}
         </Typography>
-        <Typography variant="body1" fontWeight="bold">
+        <Typography
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
           Rs. {product.price}
         </Typography>
       </CardContent>
-      <CardActions sx={{ paddingX: 2, paddingBottom: 2 }}>
+      <CardActions
+        sx={{
+          padding: 2,
+          gap: 1,
+          borderTop: "1px solid #eee",
+        }}
+      >
         <Button
-          size="small"
+          fullWidth
           variant="contained"
-          color="primary"
           onClick={() => navigate(`/product/${product._id}`)}
+          startIcon={<InfoOutlinedIcon />}
+          sx={{
+            textTransform: "none",
+            fontWeight: "bold",
+          }}
         >
           Details
         </Button>
         <Button
-          size="small"
+          fullWidth
           variant="contained"
-          color="primary"
           onClick={addToCart}
+          startIcon={<ShoppingCartIcon />}
+          sx={{
+            textTransform: "none",
+            fontWeight: "bold",
+          }}
         >
           Add to Cart
         </Button>
