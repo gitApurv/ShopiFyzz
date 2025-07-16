@@ -212,7 +212,6 @@ export default function EditProduct() {
               <TextField
                 onChange={(e) => handleImageUpload(e.target.files[0])}
                 type="file"
-                required
                 placeholder="Upload product image"
                 InputProps={{
                   startAdornment: (

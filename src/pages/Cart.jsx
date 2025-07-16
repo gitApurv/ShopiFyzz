@@ -34,6 +34,7 @@ export default function Cart() {
     cart.forEach((cp) => {
       totalPrice += cp.product.price * cp.quantity;
     });
+    totalPrice = Math.round(totalPrice);
     setTotalPrice(totalPrice);
     setCart(cart);
     setLoading(false);
