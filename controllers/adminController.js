@@ -17,7 +17,7 @@ exports.addProduct = async (req, res, next) => {
   const userId = req.user.id;
   const productData = req.body;
   const updatedProductData = { ...productData, user: userId };
-  const product = await Product.create(updatedProductData);
+  await Product.create(updatedProductData);
   res.status(201).json({
     ok: true,
     message: "Product created successfully",
@@ -35,10 +35,7 @@ exports.editProduct = async (req, res, next) => {
     user: userId,
     image: productData.image || product.image,
   };
-  const updatedProduct = await Product.findByIdAndUpdate(
-    productId,
-    updatedProductData
-  );
+  await Product.findByIdAndUpdate(productId, updatedProductData);
   res.status(200).json({
     ok: true,
     message: "Product edited successfully",
@@ -53,10 +50,10 @@ exports.deleteProduct = async (req, res, next) => {
   const updatedCart = cart.filter(
     (cartProduct) => cartProduct.product.toString() !== productId.toString()
   );
-  const updatedUser = await User.findByIdAndUpdate(userId, {
+  await User.findByIdAndUpdate(userId, {
     $set: { cart: updatedCart },
   });
-  const response = await Product.findByIdAndDelete(productId);
+  await Product.findByIdAndDelete(productId);
   res.status(200).json({
     ok: true,
     message: "Product deleted successfully",
