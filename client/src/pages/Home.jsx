@@ -67,8 +67,8 @@ export default function Home() {
               shape="rounded"
               variant="outlined"
               color="primary"
-              size="large"
-              defaultPage={0}
+              size="medium"
+              defaultPage={1}
               count={pageCount}
               page={page}
               onChange={handlePageChange}
