@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
 
+const productsPerPage = 8;
 exports.getPageCount = async (req, res, next) => {
-  const productsPerPage = 8;
   const productsCount = await Product.countDocuments();
   const pageCount = Math.ceil(productsCount / productsPerPage);
   res.status(200).json({ pageCount: pageCount });
