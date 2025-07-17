@@ -1,0 +1,34 @@
+{
+  "name": "shopifyzz",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shopifyzz is a modern, full-stack e-commerce web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides a complete platform for users to shop, manage their carts and orders, and even contribute products to the catalog. This app focuses on secure user authentication, product and order management, email notifications, PDF receipt generation, and media uploads — all wrapped in a beautiful, responsive UI powered by Material UI.",
+  "scripts": {
+    "install-all": "npm install --workspace client && npm install --workspace server",
+    "build": "npm run build --workspace client && npm run build --workspace server",
+    "dev": "concurrently \"npm run dev --workspace client\" \"npm run dev --workspace server\"",
+    "start": "concurrently \"npm run start --workspace client\" \"npm run start --workspace server\""
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitApurv/ShopiFyzz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gitApurv/ShopiFyzz/issues"
+  },
+  "homepage": "https://github.com/gitApurv/ShopiFyzz#readme",
+  "dependencies": {
+    "all": "^0.0.0"
+  }
+}
