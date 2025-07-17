@@ -5,6 +5,8 @@ import {
   Grid,
   Pagination,
 } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getProducts, getProductsCount } from "../api/products";
@@ -14,6 +16,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   const handlePageChange = async (event, page) => {
     setPage(page);
@@ -67,7 +71,7 @@ export default function Home() {
               shape="rounded"
               variant="outlined"
               color="primary"
-              size="medium"
+              size={isMdUp ? "large" : "small"}
               defaultPage={1}
               count={pageCount}
               page={page}
