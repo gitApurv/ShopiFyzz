@@ -13,8 +13,7 @@ This app focuses on secure user authentication, product and order management, em
 - 🛍️ **Shopping Experience**
   - Browse all products with clean UI
   - Add/remove items from the cart
-  - Place orders with real-time order tracking
-  - View detailed order information
+  - Place orders and view detailed order information
 
 - 📤 **Product Contribution**
   - Users can add new products to the catalog
