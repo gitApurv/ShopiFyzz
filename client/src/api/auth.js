@@ -1,7 +1,7 @@
-const API_URl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function loginUser(data) {
-  const response = await fetch(`${API_URl}/login`, {
+  const response = await fetch(`${API_URL}/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -13,7 +13,7 @@ export async function loginUser(data) {
 }
 
 export async function signUpUser(data) {
-  const response = await fetch(`${API_URl}/signup`, {
+  const response = await fetch(`${API_URL}/signup`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -25,7 +25,7 @@ export async function signUpUser(data) {
 }
 
 export async function logOutUser() {
-  const response = await fetch(`${API_URl}/logout`, {
+  const response = await fetch(`${API_URL}/logout`, {
     credentials: "include",
   });
   return response.json();

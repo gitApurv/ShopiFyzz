@@ -4,9 +4,7 @@ import {
   Container,
   Grid,
   Typography,
-  Paper,
   Divider,
-  Rating,
   Chip,
   CircularProgress,
 } from "@mui/material";
