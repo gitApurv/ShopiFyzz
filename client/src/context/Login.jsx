@@ -1,11 +1,10 @@
 import Typography from "@mui/material/Typography";
-import { createContext, useState } from "react";
-import { useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const LoginContext = createContext();
-const [retryCount, setRetryCount] = useState(0);
 
 export function LoginProvider({ children }) {
+  const [retryCount, setRetryCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
