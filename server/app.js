@@ -7,6 +7,7 @@ const cors = require("cors");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const check = require("./middlewares/check");
+const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -27,6 +28,26 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.get("/", (req, res) => {
+  res.render("index", {
+    app: "ShopiFyzz API 🛒",
+    description:
+      "🚀 Scalable full-stack e-commerce application with authentication, order management, and modern UI.",
+    author: {
+      name: "Apurv Maurya",
+      github: "https://github.com/gitApurv",
+      portfolio: "https://my-portfolio-eight-theta-70.vercel.app/",
+      linkedin: "https://www.linkedin.com/in/apurvmaurya",
+    },
+    version: "1.0.0",
+    status: "✅ Running",
+    serverTime: new Date().toLocaleString(),
+  });
+});
 
 app.use("/api", check);
 app.use("/admin", adminRoutes);
