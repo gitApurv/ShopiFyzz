@@ -1,0 +1,18 @@
+services:
+  client:
+    build: ./client
+    container_name: Client
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./client/.env
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    container_name: Server
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./server/.env
