@@ -45,7 +45,6 @@ app.get("/", (req, res) => {
     },
     version: "1.0.0",
     status: "✅ Running",
-    serverTime: new Date().toLocaleString(),
   });
 });
 
