@@ -21,10 +21,9 @@ const app = express();
 app.use(morgan("common"));
 app.use(helmet());
 
-const allowedOrigins = process.env.CORS_ORIGIN.split(",");
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
