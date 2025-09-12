@@ -1,9 +1,4 @@
-import {
-  Visibility,
-  VisibilityOff,
-  MailOutline,
-  Password,
-} from "@mui/icons-material";
+import { useParams } from "react-router";
 import {
   Box,
   Button,
@@ -17,21 +12,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import { loginUser } from "../api/auth";
-import { LoginContext } from "../context/Login";
+import { Visibility, VisibilityOff, Password } from "@mui/icons-material";
+import { resetPassword } from "../api/auth";
 
-export default function Login() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+export default function ResetPassword() {
+  const token = useParams().token;
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -41,29 +35,30 @@ export default function Login() {
     setShowPassword((show) => !show);
   };
 
-  const showAlert = (message) => {
+  const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
-      variant: "error",
+      variant: { variant },
       autoHideDuration: 3000,
       anchorOrigin: {
         vertical: "bottom",
         horizontal: "center",
       },
       style: {
-        backgroundColor: "red",
+        backgroundColor: variant === "error" ? "red" : "#1976d2",
       },
     });
   };
 
-  const handleLogin = async (data) => {
+  const handleReset = async (data) => {
     setLoading(true);
     try {
-      const response = await loginUser(data);
+      const response = await resetPassword(token, data);
       if (!response.ok) throw new Error(response.message);
-      setIsLoggedIn(true);
-      navigate("/");
+      const { message } = response;
+      showAlert(message, "success");
+      navigate("/login");
     } catch (err) {
-      showAlert(err.message);
+      showAlert(err.message, "error");
     } finally {
       setLoading(false);
     }
@@ -87,34 +82,10 @@ export default function Login() {
           gutterBottom
           sx={{ mb: 4 }}
         >
-          Login
+          Reset Password
         </Typography>
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={handleSubmit(handleReset)}>
           <Stack spacing={3}>
-            <FormControl required variant="outlined" fullWidth>
-              <FormLabel
-                sx={{
-                  mb: 1,
-                  fontWeight: 500,
-                  color: "text.primary",
-                }}
-              >
-                Email
-              </FormLabel>
-              <TextField
-                {...register("email")}
-                required
-                type="email"
-                placeholder="Enter your email"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <MailOutline color="primary" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl>
             <FormControl required variant="outlined" fullWidth>
               <FormLabel
                 sx={{
@@ -172,49 +143,9 @@ export default function Login() {
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
-                "Login"
+                "Reset Password"
               )}
             </Button>
-
-            <Typography
-              variant="body2"
-              textAlign="center"
-              sx={{ mt: 2, color: "text.secondary" }}
-            >
-              Forgot Password?
-              <Button
-                color="primary"
-                onClick={() => navigate("/reset")}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  p: 0,
-                  ml: 0.5,
-                }}
-              >
-                Reset Password
-              </Button>
-            </Typography>
-
-            <Typography
-              variant="body2"
-              textAlign="center"
-              sx={{ mt: 2, color: "text.secondary" }}
-            >
-              Don't have an account?
-              <Button
-                color="primary"
-                onClick={() => navigate("/signup")}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  p: 0,
-                  ml: 0.5,
-                }}
-              >
-                SignUp
-              </Button>
-            </Typography>
           </Stack>
         </form>
       </Box>

@@ -1,11 +1,11 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
 
 export default function OrderCard({ order }) {
-  console.log(order);
   const navigate = useNavigate();
+
   return (
     <Card
       sx={{

@@ -20,9 +20,11 @@ const orderRoutes = require("./routes/orderRoutes");
 const app = express();
 app.use(morgan("common"));
 app.use(helmet());
+
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: allowedOrigins,
     credentials: true,
   })
 );
