@@ -103,9 +103,9 @@ Create `.env` files for both client and server with the following variables:
 
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string
 CORS_ORIGIN=http://localhost:5173
-JWT_SECRET=your_jwt_secret_key
+JWT_SECRET_KEY=your_jwt_secret_key
 ```
 
 **Client** (`.env`)
