@@ -104,7 +104,7 @@ Create `.env` files for both client and server with the following variables:
 **Server** (`.env`)
 
 ```env
-PORT=8080
+PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 CORS_ORIGIN=http://localhost:5173
 JWT_SECRET=your_jwt_secret_key
@@ -115,7 +115,7 @@ GMAIL_APP_PASSWORD=your_gmail_app_password
 **Client** (`.env`)
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5000
 VITE_CLOUDINARY_CLOUD=your_cloudinary_cloud
 ```
 
