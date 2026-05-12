@@ -13,10 +13,10 @@ ShopiFyzz is a full-stack MERN e-commerce application that brings the real shopp
 
 ## 🔗 Live Demo
 
-| Service | URL |
-|---------|-----|
-| 🌐 **Frontend** | [ShopiFyzz Client (Netlify)](https://shopifyzz.netlify.app/) |
-| ⚙️ **Backend API** | [ShopiFyzz Server (Render)](https://shopifyzz.onrender.com) |
+| Service            | URL                                                          |
+| ------------------ | ------------------------------------------------------------ |
+| 🌐 **Frontend**    | [ShopiFyzz Client (Netlify)](https://shopifyzz.netlify.app/) |
+| ⚙️ **Backend API** | [ShopiFyzz Server (Render)](https://shopifyzz.onrender.com)  |
 
 ## ✨ Key Features
 
@@ -31,12 +31,12 @@ ShopiFyzz is a full-stack MERN e-commerce application that brings the real shopp
 
 ## 🛠 Tech Stack
 
-| Layer | Technologies |
-|-------|--------------|
-| **Frontend** | React.js, Vite, Material UI, Axios |
-| **Backend** | Node.js, Express.js, JWT, bcrypt |
-| **Database** | MongoDB |
-| **Services** | Cloudinary, Nodemailer, PDFKit |
+| Layer          | Technologies                         |
+| -------------- | ------------------------------------ |
+| **Frontend**   | React.js, Vite, Material UI, Axios   |
+| **Backend**    | Node.js, Express.js, JWT, bcrypt     |
+| **Database**   | MongoDB                              |
+| **Services**   | Cloudinary, Nodemailer, PDFKit       |
 | **Deployment** | Netlify (Frontend), Render (Backend) |
 
 ## 📂 Project Structure
@@ -78,12 +78,14 @@ ShopiFyzz/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/gitApurv/ShopiFyzz.git
    cd ShopiFyzz
    ```
 
 2. **Install server dependencies**
+
    ```bash
    cd server
    npm install
@@ -100,21 +102,21 @@ ShopiFyzz/
 Create `.env` files for both client and server with the following variables:
 
 **Server** (`.env`)
+
 ```env
-PORT=5000
+PORT=8080
 MONGODB_URI=your_mongodb_connection_string
+CORS_ORIGIN=http://localhost:5173
 JWT_SECRET=your_jwt_secret_key
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-EMAIL_USER=your_gmail_address
-EMAIL_PASSWORD=your_gmail_app_password
-FRONTEND_URL=http://localhost:5173
+GMAIL_APP_USERNAME=your_gmail_address
+GMAIL_APP_PASSWORD=your_gmail_app_password
 ```
 
-**Client** (`.env.local`)
+**Client** (`.env`)
+
 ```env
 VITE_API_URL=http://localhost:5000/api
+VITE_CLOUDINARY_CLOUD=your_cloudinary_cloud
 ```
 
 ## 🏃 Running the Application
@@ -122,28 +124,33 @@ VITE_API_URL=http://localhost:5000/api
 ### Development Mode
 
 **Start the server** (from `server/` directory)
+
 ```bash
 npm run dev
 ```
 
 **Start the client** (from `client/` directory)
+
 ```bash
 npm run dev
 ```
 
 The application will be available at:
+
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 
 ### Production Build
 
 **Build client**
+
 ```bash
 cd client
 npm run build
 ```
 
 **Start server in production**
+
 ```bash
 cd server
 npm start
