@@ -10,8 +10,6 @@ import Order from "./pages/Orders.jsx";
 import OrderDetails from "./pages/OrderDetails.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
-import Forgot from "./pages/Forgot.jsx";
-import Reset from "./pages/Reset.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
 import EditProduct from "./pages/EditProduct.jsx";
@@ -45,14 +43,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         Component: Signup,
-      },
-      {
-        path: "/reset",
-        Component: Forgot,
-      },
-      {
-        path: "reset/:token",
-        Component: Reset,
       },
       {
         path: "/admin/add-product",

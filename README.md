@@ -25,7 +25,6 @@ ShopiFyzz is a full-stack MERN e-commerce application that brings the real shopp
 - 🛒 **Smart Cart Functionality** - Real-time cart updates and persistence
 - 📄 **PDF Invoice Generation** - Automatic receipt generation with PDFKit
 - ☁️ **Cloud Image Storage** - Cloudinary integration for product images
-- 📬 **Email Notifications** - Automated emails with Nodemailer
 - 🎨 **Responsive UI** - Modern design with Material UI and Vite
 - 👨‍💼 **Admin Dashboard** - Product and order management interface
 
@@ -36,7 +35,7 @@ ShopiFyzz is a full-stack MERN e-commerce application that brings the real shopp
 | **Frontend**   | React.js, Vite, Material UI, Axios   |
 | **Backend**    | Node.js, Express.js, JWT, bcrypt     |
 | **Database**   | MongoDB                              |
-| **Services**   | Cloudinary, Nodemailer, PDFKit       |
+| **Services**   | Cloudinary, PDFKit                   |
 | **Deployment** | Netlify (Frontend), Render (Backend) |
 
 ## 📂 Project Structure
@@ -73,7 +72,6 @@ ShopiFyzz/
 - **npm** or **yarn**
 - **MongoDB** instance (local or cloud)
 - **Cloudinary** account for image uploads
-- **Gmail** account for Nodemailer setup
 
 ### Installation
 
@@ -108,8 +106,6 @@ PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 CORS_ORIGIN=http://localhost:5173
 JWT_SECRET=your_jwt_secret_key
-GMAIL_APP_USERNAME=your_gmail_address
-GMAIL_APP_PASSWORD=your_gmail_app_password
 ```
 
 **Client** (`.env`)
@@ -160,7 +156,7 @@ npm start
 
 The backend API provides endpoints for:
 
-- **Authentication**: `/api/auth/*` - Register, Login, Forgot Password, Reset Password
+- **Authentication**: `/api/auth/*` - Register, Login, Logout
 - **Products**: `/api/products/*` - Browse, Filter, Search products
 - **Orders**: `/api/orders/*` - Create, View, Track orders
 - **Cart**: `/api/cart/*` - Add, Remove, Update cart items

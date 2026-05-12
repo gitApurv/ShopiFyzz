@@ -181,26 +181,6 @@ export default function Login() {
               textAlign="center"
               sx={{ mt: 2, color: "text.secondary" }}
             >
-              Forgot Password?
-              <Button
-                color="primary"
-                onClick={() => navigate("/reset")}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  p: 0,
-                  ml: 0.5,
-                }}
-              >
-                Reset Password
-              </Button>
-            </Typography>
-
-            <Typography
-              variant="body2"
-              textAlign="center"
-              sx={{ mt: 2, color: "text.secondary" }}
-            >
               Don't have an account?
               <Button
                 color="primary"
