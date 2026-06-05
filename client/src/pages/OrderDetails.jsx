@@ -72,7 +72,7 @@ export default function OrderDetails() {
 
           <Fade in={true}>
             <Grid container spacing={4}>
-              <Grid xs={12} md={8}>
+              <Grid item xs={12} md={8}>
                 <Box
                   sx={{
                     display: "flex",
@@ -91,7 +91,7 @@ export default function OrderDetails() {
                 </Box>
               </Grid>
 
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Box
                   sx={{
                     position: { md: "sticky" },

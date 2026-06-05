@@ -25,7 +25,7 @@ export default function EditProduct() {
   const { register, setValue, handleSubmit } = useForm();
 
   useEffect(() => {
-    const laodProduct = async (productId) => {
+    const loadProduct = async (productId) => {
       const product = await getProduct(productId);
       setValue("title", product.title);
       setValue("price", product.price);
@@ -33,7 +33,7 @@ export default function EditProduct() {
     };
 
     if (productId) {
-      laodProduct(productId);
+      loadProduct(productId);
     }
   }, [productId, setValue]);
 

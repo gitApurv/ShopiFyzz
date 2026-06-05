@@ -12,7 +12,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const dns = require("dns");
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+if (process.env.DNS_SERVERS) {
+  dns.setServers(process.env.DNS_SERVERS.split(",").map((dns) => dns.trim()).filter(Boolean));
+}
 
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");

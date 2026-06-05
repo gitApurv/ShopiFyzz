@@ -58,7 +58,7 @@ export default function Home() {
               }}
             >
               {products.map((product, index) => (
-                <Grid key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
+                <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
                   <ProductCard product={product} />
                 </Grid>
               ))}

@@ -50,6 +50,13 @@ exports.removeFromCart = async (req, res, next) => {
     return cp.product.toString() === productId.toString();
   });
 
+  if (cartProductIndex === -1) {
+    return res.status(404).json({
+      ok: false,
+      message: "Product not found in cart",
+    });
+  }
+
   const updatedCart = [...cart];
   updatedCart[cartProductIndex].quantity -= 1;
 

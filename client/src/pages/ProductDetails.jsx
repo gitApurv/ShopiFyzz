@@ -70,7 +70,7 @@ export default function ProductDetails() {
           }}
         >
           <Grid container spacing={4}>
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src={product.image}
@@ -87,7 +87,7 @@ export default function ProductDetails() {
                 }}
               />
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box
                 sx={{
                   display: "flex",

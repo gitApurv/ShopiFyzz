@@ -74,7 +74,7 @@ export default function AdminProducts() {
             }}
           >
             {products.map((product, index) => (
-              <Grid key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
                 <AdminProductCard
                   product={product}
                   deleteProduct={delProduct}
