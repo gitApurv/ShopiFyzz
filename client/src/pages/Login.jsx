@@ -1,8 +1,8 @@
 import {
   Visibility,
   VisibilityOff,
-  MailOutline,
   Password,
+  MailOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -22,10 +22,10 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { loginUser } from "../api/auth";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 
 export default function Login() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { setIsLoggedIn } = useContext(LoginContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -81,11 +81,10 @@ export default function Login() {
       >
         <Typography
           variant="h4"
-          textAlign="center"
           fontWeight="bold"
           color="primary"
           gutterBottom
-          sx={{ mb: 4 }}
+          sx={{ mb: 4, textAlign: "center" }}
         >
           Login
         </Typography>
@@ -106,12 +105,14 @@ export default function Login() {
                 required
                 type="email"
                 placeholder="Enter your email"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <MailOutline color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MailOutlined color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -130,23 +131,25 @@ export default function Login() {
                 required
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Password color="primary" />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Password color="primary" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -178,8 +181,7 @@ export default function Login() {
 
             <Typography
               variant="body2"
-              textAlign="center"
-              sx={{ mt: 2, color: "text.secondary" }}
+              sx={{ mt: 2, color: "text.secondary", textAlign: "center" }}
             >
               Don't have an account?
               <Button

@@ -1,6 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-
-export const LoginContext = createContext();
+import { useState, useEffect } from "react";
+import { LoginContext } from "./LoginContext";
 
 export function LoginProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

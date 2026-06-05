@@ -1,9 +1,9 @@
 import {
   Visibility,
   VisibilityOff,
-  PersonOutline,
-  MailOutline,
   Password,
+  PersonOutlined,
+  MailOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -23,10 +23,10 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { signUpUser } from "../api/auth";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 
 export default function Signup() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { setIsLoggedIn } = useContext(LoginContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -82,11 +82,10 @@ export default function Signup() {
       >
         <Typography
           variant="h4"
-          textAlign="center"
           fontWeight="bold"
           color="primary"
           gutterBottom
-          sx={{ mb: 4 }}
+          sx={{ mb: 4, textAlign: "center" }}
         >
           SignUp
         </Typography>
@@ -106,12 +105,14 @@ export default function Signup() {
                 {...register("name")}
                 required
                 placeholder="Enter your name"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PersonOutline color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonOutlined color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -130,12 +131,14 @@ export default function Signup() {
                 required
                 type="email"
                 placeholder="Enter your email"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <MailOutline color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MailOutlined color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -154,23 +157,25 @@ export default function Signup() {
                 required
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a password"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Password color="primary" />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Password color="primary" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -201,8 +206,7 @@ export default function Signup() {
             </Button>
             <Typography
               variant="body2"
-              textAlign="center"
-              sx={{ mt: 2, color: "text.secondary" }}
+              sx={{ mt: 2, color: "text.secondary", textAlign: "center" }}
             >
               Already have an account?
               <Button

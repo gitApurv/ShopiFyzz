@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { AccountBox, MenuOpen } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 import { logOutUser } from "../api/auth";
 
 export default function Navbar() {

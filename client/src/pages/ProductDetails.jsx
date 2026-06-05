@@ -12,27 +12,27 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSnackbar } from "notistack";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 import { getProduct } from "../api/products";
 import { addProductToCart } from "../api/cart";
 
 export default function ProductDetails() {
   const { enqueueSnackbar } = useSnackbar();
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useContext(LoginContext);
   const [loading, setLoading] = useState(true);
   const { productId } = useParams();
   const [product, setProduct] = useState({});
 
-  const loadProduct = async (productId) => {
-    const product = await getProduct(productId);
-    console.log(product);
-    setProduct(product);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    loadProduct(productId);
-  }, []);
+    const loadProduct = async () => {
+      const product = await getProduct(productId);
+      setProduct(product);
+      setLoading(false);
+    };
+    if (productId) {
+      loadProduct();
+    }
+  }, [productId]);
 
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {
@@ -70,7 +70,7 @@ export default function ProductDetails() {
           }}
         >
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box
                 component="img"
                 src={product.image}
@@ -87,7 +87,7 @@ export default function ProductDetails() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box
                 sx={{
                   display: "flex",

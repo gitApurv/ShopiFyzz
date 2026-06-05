@@ -9,21 +9,21 @@ import {
   Typography,
 } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import CartCard from "../components/CartCard";
 import { getCart } from "../api/cart";
 import { createOrder } from "../api/orders";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useContext(LoginContext);
   const [loading, setLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cart, setCart] = useState([]);
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     if (!isLoggedIn) {
       setLoading(false);
       return;
@@ -38,11 +38,11 @@ export default function Cart() {
     setTotalPrice(totalPrice);
     setCart(cart);
     setLoading(false);
-  };
+  }, [isLoggedIn]);
 
   useEffect(() => {
     loadCart();
-  }, []);
+  }, [loadCart]);
 
   const handlePlaceOrder = async () => {
     await createOrder();
@@ -83,7 +83,7 @@ export default function Cart() {
               }}
             >
               <Grid container spacing={4}>
-                <Grid item sx={{ sm: 12, md: 8 }}>
+                <Grid sx={{ sm: 12, md: 8 }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -104,7 +104,7 @@ export default function Cart() {
                     ))}
                   </Box>
                 </Grid>
-                <Grid item sx={{ sm: 12, md: 4 }}>
+                <Grid sx={{ sm: 12, md: 4 }}>
                   <Box
                     sx={{
                       position: {
