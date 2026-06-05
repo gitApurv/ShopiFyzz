@@ -21,15 +21,16 @@ export default function OrderDetails() {
   const [order, setOrder] = useState({ products: [] });
   const [loading, setLoading] = useState(true);
 
-  const loadOrder = async (orderId) => {
-    const order = await getOrder(orderId);
-    setOrder(order);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    loadOrder(orderId);
-  }, []);
+    const loadOrder = async () => {
+      const order = await getOrder(orderId);
+      setOrder(order);
+      setLoading(false);
+    };
+    if (orderId) {
+      loadOrder();
+    }
+  }, [orderId]);
 
   const handleDownloadReceipt = async () => {
     await downloadReceipt(orderId);

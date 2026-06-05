@@ -11,6 +11,11 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const dns = require("dns");
+if (process.env.DNS_SERVERS) {
+  dns.setServers(process.env.DNS_SERVERS.split(",").map((server) => server.trim()).filter(Boolean));
+}
+
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");

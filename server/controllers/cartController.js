@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const Product = require("../models/Product");
 
 exports.getCart = async (req, res, next) => {
   const userId = req.user.id;
@@ -13,7 +12,6 @@ exports.addToCart = async (req, res, next) => {
   const productId = req.params.productId;
 
   const user = await User.findById(userId);
-  const product = await Product.findById(productId);
   const cart = user.cart;
 
   const cartProductIndex = cart.findIndex((cp) => {
@@ -31,7 +29,7 @@ exports.addToCart = async (req, res, next) => {
     });
   }
 
-  const updatedUser = await User.findByIdAndUpdate(userId, {
+  await User.findByIdAndUpdate(userId, {
     $set: { cart: updatedCart },
   });
 
@@ -46,17 +44,23 @@ exports.removeFromCart = async (req, res, next) => {
   const productId = req.params.productId;
 
   const user = await User.findById(userId);
-  const product = await Product.findById(productId);
   const cart = user.cart;
 
   const cartProductIndex = cart.findIndex((cp) => {
     return cp.product.toString() === productId.toString();
   });
 
+  if (cartProductIndex === -1) {
+    return res.status(404).json({
+      ok: false,
+      message: "Product not found in cart",
+    });
+  }
+
   const updatedCart = [...cart];
   updatedCart[cartProductIndex].quantity -= 1;
 
-  const updatedUser = await User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     { _id: userId },
     { $set: { cart: updatedCart } }
   );
@@ -74,15 +78,11 @@ exports.deleteFromCart = async (req, res, next) => {
   const user = await User.findById(userId);
   const cart = user.cart;
 
-  const cartProductIndex = cart.findIndex((cp) => {
-    return cp.product.toString() === productId.toString();
-  });
-
   const updatedCart = cart.filter(
     (item) => item.product.toString() !== productId.toString()
   );
 
-  const updatedUser = await User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     { _id: userId },
     { $set: { cart: updatedCart } }
   );

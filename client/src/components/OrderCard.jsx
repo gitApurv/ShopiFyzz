@@ -46,8 +46,9 @@ export default function OrderCard({ order }) {
           minWidth: 0,
         }}
       >
-        {order.products.map((product) => (
+        {order.products.map((product, index) => (
           <Typography
+            key={product.product?._id || index}
             variant="body1"
             fontWeight={"bold"}
             sx={{

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
 import AdminProductCard from "../components/AdminProductCard";
@@ -20,15 +20,15 @@ export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     const products = await getProducts();
     setProducts(products);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
   const showAlert = (message, variant) => {
     enqueueSnackbar(message, {

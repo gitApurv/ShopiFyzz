@@ -10,12 +10,12 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 import { addProductToCart } from "../api/cart";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useContext(LoginContext);
 
   const { enqueueSnackbar } = useSnackbar();
   const showAlert = (message, variant) => {

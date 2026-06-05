@@ -23,22 +23,20 @@ export default function Home() {
     setPage(page);
   };
 
-  const loadProducts = async () => {
-    const products = await getProducts(page);
-    setProducts(products);
-    setLoading(false);
-  };
-
-  const loadPageCount = async () => {
-    const { pageCount } = await getProductsCount();
-    setPageCount(pageCount);
-  };
-
   useEffect(() => {
+    const loadProducts = async () => {
+      const products = await getProducts(page);
+      setProducts(products);
+      setLoading(false);
+    };
     loadProducts();
   }, [page]);
 
   useEffect(() => {
+    const loadPageCount = async () => {
+      const { pageCount } = await getProductsCount();
+      setPageCount(pageCount);
+    };
     loadPageCount();
   }, []);
 

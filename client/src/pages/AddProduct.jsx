@@ -57,8 +57,7 @@ export default function AddProduct() {
       data.append("file", image);
       data.append("upload_preset", "ShopiFyzz");
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${
-          import.meta.env.VITE_CLOUDINARY_CLOUD
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD
         }/image/upload`,
         {
           method: "POST",
@@ -104,11 +103,10 @@ export default function AddProduct() {
       >
         <Typography
           variant="h4"
-          textAlign="center"
           fontWeight="bold"
           color="primary"
           gutterBottom
-          sx={{ mb: 2 }}
+          sx={{ mb: 2, textAlign: "center" }}
         >
           Add Product
         </Typography>
@@ -128,12 +126,14 @@ export default function AddProduct() {
                 {...register("title")}
                 required
                 placeholder="Enter product title"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Title color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Title color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -151,12 +151,14 @@ export default function AddProduct() {
                 {...register("price")}
                 required
                 placeholder="Enter product price"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <CurrencyRupee color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CurrencyRupee color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -176,12 +178,14 @@ export default function AddProduct() {
                 multiline
                 rows={4}
                 placeholder="Enter product description"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Description color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Description color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>
@@ -200,12 +204,14 @@ export default function AddProduct() {
                 type="file"
                 required
                 placeholder="Upload product image"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Image color="primary" />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image color="primary" />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
               />
             </FormControl>

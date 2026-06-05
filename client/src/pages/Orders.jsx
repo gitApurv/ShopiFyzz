@@ -9,27 +9,26 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useContext, useEffect, useState } from "react";
 import { getOrders } from "../api/orders";
 import OrderCard from "../components/OrderCard";
-import { LoginContext } from "../context/Login";
+import { LoginContext } from "../context/LoginContext";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useContext(LoginContext);
   const [loading, setLoading] = useState(true);
 
-  const loadOrders = async () => {
-    if (!isLoggedIn) {
-      setLoading(false);
-      return;
-    }
-
-    const orders = await getOrders();
-    setOrders(orders);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const loadOrders = async () => {
+      if (!isLoggedIn) {
+        setLoading(false);
+        return;
+      }
+
+      const orders = await getOrders();
+      setOrders(orders);
+      setLoading(false);
+    };
     loadOrders();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <Container maxWidth="xl">

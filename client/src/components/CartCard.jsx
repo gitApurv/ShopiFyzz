@@ -20,17 +20,17 @@ import {
 
 export default function CartCard({ cartProduct, loadCart }) {
   const handleRemove = async () => {
-    const response = await removeProductFromCart(cartProduct.product._id);
+    await removeProductFromCart(cartProduct.product._id);
     loadCart();
   };
 
   const handleAdd = async () => {
-    const response = await addProductToCart(cartProduct.product._id);
+    await addProductToCart(cartProduct.product._id);
     loadCart();
   };
 
   const handleDelete = async () => {
-    const response = await deleteProductFromCart(cartProduct.product._id);
+    await deleteProductFromCart(cartProduct.product._id);
     loadCart();
   };
 
