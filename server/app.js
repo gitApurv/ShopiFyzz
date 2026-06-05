@@ -13,7 +13,7 @@ dotenv.config();
 
 const dns = require("dns");
 if (process.env.DNS_SERVERS) {
-  dns.setServers(process.env.DNS_SERVERS.split(",").map((dns) => dns.trim()).filter(Boolean));
+  dns.setServers(process.env.DNS_SERVERS.split(",").map((server) => server.trim()).filter(Boolean));
 }
 
 const authRoutes = require("./routes/authRoutes");
