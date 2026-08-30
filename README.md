@@ -11,13 +11,6 @@
 
 ShopiFyzz is a full-stack MERN e-commerce application that brings the real shopping experience online. It enables users to browse products, manage carts, place orders, and generate digital receipts — all within a sleek and responsive interface.
 
-## 🔗 Live Demo
-
-| Service            | URL                                                          |
-| ------------------ | ------------------------------------------------------------ |
-| 🌐 **Frontend**    | [ShopiFyzz Client (Netlify)](https://shopifyzz.netlify.app/) |
-| ⚙️ **Backend API** | [ShopiFyzz Server (Render)](https://shopifyzz.onrender.com)  |
-
 ## ✨ Key Features
 
 - 🔐 **Secure JWT Authentication** - Token-based secure user sessions
